@@ -9,3 +9,8 @@
     box-sizing: border-box;
     font-family: "Micro 5", serif;
 }
+html, body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    height: 100%;
+  }
