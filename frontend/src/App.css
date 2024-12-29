@@ -1,0 +1,301 @@
+:root {
+    --text-color: #f4f4f4;
+    --bg-color: #1a1a1a;
+    --button-color: #d9ff00;
+    --button-hover-color: #ff0000;
+    --font-family: 'Press Start 2P', cursive;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.start {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden; 
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+}
+
+.background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; 
+    filter: brightness(0.5) contrast(1.2);
+}
+
+.content {
+    position: relative;
+    z-index: 1; 
+    color: var(--text-color);
+    text-align: center;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-title {
+    font-size: 4rem;
+    text-shadow: 2px 2px #d608ff, -2px -2px #fcff52;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+h2 {
+    font-size: 4vh;
+}
+
+.animate-start {
+    animation-name: Jookroo;
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    position: relative;
+}
+
+.game-button {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    color: var(--button-color);
+    background: none;
+    border: 2px solid var(--button-color);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.game-button:hover {
+    color: var(--button-hover-color);
+    border-color: var(--button-hover-color);
+    text-shadow: 0px 0px 10px var(--button-hover-color);
+}
+
+@keyframes Jookroo {
+    0% {
+        top: 0px;
+    }
+    50% {
+        top: 5px;
+    }
+    100% {
+        top: 0%;
+    }
+}
+
+.menu-item {
+    padding: 10px;
+    transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
+}
+
+.menu-item.selected {
+    transform: scale(1.2);
+    font-size: 1.5em;
+    color: #c03030; 
+}
+
+/* Skill Bars Styling */
+.skill-bar-container {
+    margin-top: 30px;
+    padding: 20px;
+    width: 100%; /* Ensure the container is taking full width */
+}
+
+.skill-bar {
+    position: relative;
+    margin-bottom: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    height: 30px;
+    width: 100%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.skill-name {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    z-index: 15; 
+}
+
+.skill-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    z-index: 5;
+    width: 0; 
+    transition: width 2s ease-in-out;
+}
+
+/* Specific skill bar fills */
+.js {
+    background-color: yellow;
+}
+
+.python {
+    background-color: darkblue;
+}
+
+.css {
+    background-color: lightblue;
+}
+
+.node {
+    background-color: green;
+}
+
+.mongo {
+    background-color: darkgreen;
+}
+
+.html {
+    background-color: rgb(255, 0, 0);
+}
+
+
+.skill-bar-fill.js {
+    animation: fillBar100 2s forwards;
+}
+
+.skill-bar-fill.python {
+    animation: fillBar70 2s forwards 0.2s;
+}
+
+.skill-bar-fill.css {
+    animation: fillBar80 2s forwards 0.4s;
+}
+
+.skill-bar-fill.node {
+    animation: fillBar60 2s forwards 0.6s;
+}
+
+.skill-bar-fill.mongo {
+    animation: fillBar40 2s forwards 0.8s;
+}
+
+.skill-bar-fill.html {
+    animation: fillBar100 2s forwards 1s;
+}
+
+@keyframes fillBar100 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+@keyframes fillBar80 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 80%;
+    }
+}
+@keyframes fillBar70 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 70%;
+    }
+}
+@keyframes fillBar60 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 60%;
+    }
+}
+@keyframes fillBar40 {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 40%;
+    }
+}
+
+
+/* card section */
+/* Container for the grid */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style for each card */
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Style for the image section of the card */
+.card-image {
+    padding: 10px;
+}
+
+.card-image img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover;
+}
+
+/* Style for the text section of the card */
+.card-text {
+    padding: 10px;
+}
+
+.card-text a {
+    font-size: 1.2rem;
+    color: #ffffff; /* Instagram blue */
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+}
+
+.card-text a:hover {
+    text-decoration: underline;
+}
+#ig{
+    background: linear-gradient(270deg,#f9ce34,#ee2a7b, #6228d7)
+}
+#fb{
+    background: linear-gradient(270deg,#00c6ff, #0072ff)
+}
+#li{
+    background-color: #0072b1;
+}
+#bd{
+    background: linear-gradient(270deg, rgba(255,239,0,1) 0%, rgba(255,218,130,1) 35%, rgb(250, 255, 206) 100%);
+    color: black;
+}
+
