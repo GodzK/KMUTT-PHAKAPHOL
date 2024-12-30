@@ -399,6 +399,11 @@ p{
     overflow-y: auto;
     height: 100vh; 
   }
+  .project svg:hover{
+     scale: 1.2;
+     transition: 0.2s;
+  }
+
   .project h2{
     font-size: 8vh;
   }
@@ -421,4 +426,8 @@ p{
   }
   .experience{
     margin-top: 7%;
+  }
+  #textdeco:hover{
+    text-decoration:underline;
+    text-decoration-color: #fff;
   }

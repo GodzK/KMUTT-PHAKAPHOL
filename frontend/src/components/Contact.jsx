@@ -1,7 +1,7 @@
 import React from 'react'
 function Contact() {
   return (
-    <div className="content">
+    <div className="content" data-aos="fade-up">
           <h1>Contact</h1>
           <div className="card-container">
             <div className="card" id="ig">

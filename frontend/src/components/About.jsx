@@ -1,5 +1,6 @@
 import React from 'react'
 import profile from "../assets/profile.jpg";
+
 function About() {
   return (
     <div className="content">
@@ -23,7 +24,7 @@ function About() {
               </div>
               <p data-aos="flip-up" className="about-cta">
                 ✉️Contact for work{" "}
-                <a href="https://www.instagram.com/pk._tcsk/" target="_blank">
+                <a href="https://www.instagram.com/pk._tcsk/" target="_blank" id='textdeco'>
                   IG DM
                 </a>
               </p>
