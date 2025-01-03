@@ -14,3 +14,8 @@ html, body {
     scroll-behavior: smooth;
     height: 100%;
   }
+
+  body.modal-open {
+    overflow: hidden;
+  }
+  

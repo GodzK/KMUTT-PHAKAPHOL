@@ -1,5 +1,5 @@
 import React from 'react'
-import projectdata from "../../../Backend/Data"
+import {projectdata} from "../../../Backend/Data"
 const getTechColor = (tech) => {
     const colors = {
       React: "#30C7FF",
