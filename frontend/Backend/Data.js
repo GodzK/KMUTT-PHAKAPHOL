@@ -2,6 +2,10 @@ import pkshop from "../../frontend/src/assets/pkshop.jfif";
 import crypto from "../../frontend/src/assets/crypto.jfif";
 import iot from "../../frontend/src/assets/iot.png";
 import tpr from "../../frontend/src/assets/TPR/tprport.png"
+import tpr1 from "../../frontend/src/assets/TPR/tpr1.jpeg"
+import tpr2 from "../../frontend/src/assets/TPR/tpr2.jpeg"
+import tpr3 from "../../frontend/src/assets/TPR/tpr3.jpeg"
+import tpr4 from "../../frontend/src/assets/TPR/tpr4.jpeg"
 export const projectdata = [
     {
         projectname: "PK Shop",
@@ -36,7 +40,8 @@ export const ActivityData = [
           activityTitle: "TuePunrak 18th (English Teacher)",
           Semester: "Semester 1",
           image: tpr, // 
-          description: "The Camp promotes unity and friendship among students."
+          description: "The Camp promotes unity and friendship among students.",
+          activitypic : [tpr1,tpr2,tpr3,tpr4],
         },
         {
           activityTitle: "TuePunrak 19th (English Teacher)",

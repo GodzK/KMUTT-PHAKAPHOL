@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, act } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ActivityData } from "../../Backend/Data";
 import "../App.css";
 
@@ -7,9 +7,11 @@ function Activity() {
   const [modalContent, setModalContent] = useState(null);
   const [selectedActivityIndex, setSelectedActivityIndex] = useState(0);
   const [currentSemesterIndex, setCurrentSemesterIndex] = useState(0);
+  const [autoSlideIndex, setAutoSlideIndex] = useState(0);
 
   const activities = ActivityData[currentSemesterIndex]?.Activity1 || [];
-  const activityRefs = useRef([]); // เก็บ references ของ Activity แต่ละตัว
+  const activityRefs = useRef([]); // Store references for activities
+  const modalIntervalRef = useRef(null); // Store interval reference
 
   const openModal = (content) => {
     setModalContent(content);
@@ -19,6 +21,7 @@ function Activity() {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalContent(null);
+    clearInterval(modalIntervalRef.current); // Clear the interval when modal closes
   };
 
   const handleKeyDown = (event) => {
@@ -30,23 +33,22 @@ function Activity() {
       if (event.key === "ArrowDown") {
         const newIndex = (selectedActivityIndex + 1) % activities.length;
         setSelectedActivityIndex(newIndex);
-        scrollToActivity(newIndex); // เลื่อนไปยัง Activity ที่เลือก
+        scrollToActivity(newIndex); // Scroll to the selected activity
       } else if (event.key === "ArrowUp") {
         const newIndex =
           (selectedActivityIndex - 1 + activities.length) % activities.length;
         setSelectedActivityIndex(newIndex);
-        scrollToActivity(newIndex); // เลื่อนไปยัง Activity ที่เลือก
+        scrollToActivity(newIndex); // Scroll to the selected activity
       } else if (event.key === "ArrowRight") {
         const newSemesterIndex =
           (currentSemesterIndex + 1) % ActivityData.length;
         setCurrentSemesterIndex(newSemesterIndex);
-        setSelectedActivityIndex(0); // รีเซ็ต Activity ที่เลือก
+        setSelectedActivityIndex(0); // Reset selected activity
       } else if (event.key === "ArrowLeft") {
         const newSemesterIndex =
-          (currentSemesterIndex - 1 + ActivityData.length) %
-          ActivityData.length;
+          (currentSemesterIndex - 1 + ActivityData.length) % ActivityData.length;
         setCurrentSemesterIndex(newSemesterIndex);
-        setSelectedActivityIndex(0); // รีเซ็ต Activity ที่เลือก
+        setSelectedActivityIndex(0); // Reset selected activity
       } else if (event.key === "Enter") {
         openModal(activities[selectedActivityIndex]);
       }
@@ -62,12 +64,27 @@ function Activity() {
     }
   };
 
+  const autoSlide = () => {
+    if (modalContent && modalContent.activitypic && modalContent.activitypic.length > 0) {
+      setAutoSlideIndex((prevIndex) => (prevIndex + 1) % modalContent.activitypic.length);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isModalOpen, selectedActivityIndex, currentSemesterIndex, activities]);
+
+  useEffect(() => {
+    if (isModalOpen && modalContent && modalContent.activitypic && modalContent.activitypic.length > 0) {
+      modalIntervalRef.current = setInterval(autoSlide, 3000); // Change image every 3 seconds
+    } else {
+      clearInterval(modalIntervalRef.current); // Clear interval when modal is closed
+    }
+    return () => clearInterval(modalIntervalRef.current); // Cleanup on unmount
+  }, [isModalOpen, modalContent]);
 
   return (
     <>
@@ -86,7 +103,7 @@ function Activity() {
                 selectedActivityIndex === idx ? "selected" : ""
               }`}
               key={idx}
-              ref={(el) => (activityRefs.current[idx] = el)} // ตั้งค่า ref
+              ref={(el) => (activityRefs.current[idx] = el)} // Set reference for each activity
             >
               <h3>{activity.activityTitle}</h3>
               <h2>{activity.Semester}</h2>
@@ -110,16 +127,21 @@ function Activity() {
       </div>
 
       {/* Modal */}
-      {isModalOpen && (
+      {isModalOpen && modalContent && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>{modalContent?.activityTitle}</h2>
-            <p>{modalContent?.description}</p>
-            <img
-              src={modalContent?.image}
-              alt={modalContent?.activityTitle}
-              className="modal-image"
-            />
+            <h2>{modalContent.activityTitle}</h2>
+            <p>{modalContent.description}</p>
+            <div className="modal-image-container">
+              {/* Display images based on the autoSlideIndex */}
+              {modalContent.activitypic && modalContent.activitypic.length > 0 && (
+                <img
+                  src={modalContent.activitypic[autoSlideIndex]}
+                  alt={modalContent.activityTitle}
+                  className="modal-image"
+                />
+              )}
+            </div>
             <button className="btn btn-close" onClick={closeModal}>
               Close (Backspace)
             </button>
