@@ -8,12 +8,15 @@ import Skill from "./components/Skill";
 import Project from "./components/project";
 import Activity from "./components/Activity";
 import About from "./components/About";
+
 AOS.init();
+
 const AboutMe = ({ currentPage }) => {
   useEffect(() => {
     AOS.init({ duration: 1200 });
   }, []);
 };
+
 const getTechColor = (tech) => {
   const colors = {
     React: "#30C7FF",
@@ -24,9 +27,11 @@ const getTechColor = (tech) => {
   };
   return colors[tech] || "gray";
 };
+
 function App() {
   const [currentPage, setCurrentPage] = useState("menu");
   const [selectedMenuIndex, setSelectedMenuIndex] = useState(0);
+
   const menuItems = [
     { page: "about", label: "About Me" },
     { page: "projects", label: "Projects" },
@@ -34,6 +39,7 @@ function App() {
     { page: "skills", label: "Skills" },
     { page: "contact", label: "Contact" },
   ];
+
   const handleKeyDown = (event) => {
     if (currentPage === "menu") {
       if (event.key === "ArrowDown") {
@@ -56,6 +62,11 @@ function App() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedMenuIndex, currentPage]);
+
+  const handleMenuClick = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="start" tabIndex="0">
       <video
@@ -75,22 +86,24 @@ function App() {
                 className={`menu-item ${
                   selectedMenuIndex === index ? "selected" : ""
                 }`}
+                onClick={() => handleMenuClick(item.page)}
               >
                 {item.label}
               </li>
             ))}
           </ul>
           <p className="instructions">
-            Use Arrow Keys to Navigate and Enter to Select
+            Use Arrow Keys to Navigate, Enter to Select, or Click to Choose
           </p>
         </div>
       )}
-      {currentPage === "about" && (<About/>)}
-      {currentPage === "activity" && (<Activity/>)}
+      {currentPage === "about" && <About />}
+      {currentPage === "activity" && <Activity />}
       {currentPage === "projects" && <Project />}
       {currentPage === "skills" && <Skill />}
       {currentPage === "contact" && <Contact />}
     </div>
   );
 }
+
 export default App;

@@ -5,6 +5,19 @@
     --button-hover-color: #ff0000;
     --font-family: 'Press Start 2P', cursive;
 }
+@media (max-width: 480px) {
+  .game-title {
+      font-size: 4rem;
+      margin-bottom: 20px;
+  }
+  .game-button {
+      font-size: 1rem;
+      padding: 8px 16px;
+  }
+  .activity-image {
+      width: 90%; /* Reduce image size for smaller screens */
+  }
+}
 
 
 .start {
@@ -34,6 +47,7 @@
     text-align: center;
     padding: 20px;
     height: 100vh;
+    min-height: 100vh;
     display: flex;
     overflow-y: auto;
     flex-direction: column;
@@ -47,19 +61,11 @@
     margin-bottom: 30px;  
 }
 
-
 h1 {
-    font-size: 80px;
+  font-size: clamp(2rem, 5vw, 4rem); /* Scales between 2rem and 4rem */
 }
-
-h2 {
-    font-size: 4vh;
-}
-li{
-    font-size: 4vh;
-}
-p{
-    font-size: 40px;
+p, li {
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
 }
 
 .animate-start {
@@ -425,6 +431,51 @@ p{
     overflow-y: auto;
     height: 100vh; 
 }
+#project-container{
+  width: 800px;
+  gap: 10px;
+}
+@media screen and (min-width: 1000px) {
+  #semester-section {
+      width: 400px; 
+     
+  }
+}
+.semester-section {
+  margin-bottom: 50px;
+  padding: 20px;
+  border: 1px solid #444;
+  border-radius: 10px;
+  background-color: #292929;
+}
+
+
+.image-container img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 800px; 
+  overflow: hidden; 
+  margin: 0 auto; 
+}
+
+.image-container #project-image {
+  width: 100%; 
+  max-width: 100%; 
+  height: auto; 
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+#project-image {
+  width: 100%; /* Scale image to fit container */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 100%; /* Prevent exceeding container width */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 
   .main-title {
     font-size: 4rem;
@@ -435,14 +486,7 @@ p{
   
  
   
-  .semester-section {
-    margin-bottom: 50px;
-    padding: 20px;
-    border: 1px solid #444;
-    border-radius: 10px;
-    background-color: #292929;
-  }
-  
+ 
   
   
   
@@ -495,12 +539,11 @@ p{
   }
   
   .activity-item.selected {
-    border: 2px solid red;
-    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid red;
   }
   .item.selected {
     border: 2px solid red;
-    background-color: rgba(255, 0, 0, 0.1);
+   
   }
   
   .experience {
@@ -514,24 +557,16 @@ p{
     text-decoration:underline;
     text-decoration-color: #fff;
   }
-#project-container{
-    width: 1000px;
-    gap: 10px;
-}
+
 .image-container{
     object-fit: cover;
     justify-content: center;
     align-items: center;
     display: flex;
 }
-.image-container #project-image{
-    width: 50%;
-    height: 100%;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease-in-out;}
 
-  
+
+
   .close-button {
     position: absolute;
     top: 10px;
@@ -560,11 +595,13 @@ p{
     background: #fff;
     padding: 20px;
     border-radius: 10px;
-    max-width: 500px;
-    
+    max-width: 1200px;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .modal-content img {
@@ -578,14 +615,15 @@ p{
     width: 100%;
     height: auto;
     overflow: hidden;
+    justify-content: center;
   }
   
   .modal-image {
-    width: 100%;
-    height: auto;
+    width: 600px;
+    height: 10vh;
+    
     transition: opacity 1s ease-in-out;
   }
-c  
   
   .btn-close {
     background: red;

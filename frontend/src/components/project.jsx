@@ -74,52 +74,48 @@ function Project() {
 
   return (
     <>
-      <div id="project">
+      <div id="project" data-aos="fade-up" >
         <h1 data-aos="fade-up" className="main-title">
           {isProjectData ? "Projects" : "Activities"}
         </h1>
-        <section
-  className="semester-section"
-  data-aos="fade-up"
-  data-aos-delay="200"
->
-  {items.map((item, idx) => (
-    <div
-       id="project-container"
-      className={`item ${
-        selectedIndex === idx ? "selected" : ""
-      }`}
-      key={idx}
-      ref={(el) => (itemRefs.current[idx] = el)}
-    >
-      <h1>{isProjectData ? item.projectname : item.activityTitle}</h1>
-      <div className="image-container">
-        <img
-          src={isProjectData ? item.picture : item.image}
-          alt={isProjectData ? item.projectname : item.activityTitle}
-          id="project-image"
-        />
-      </div>
-      <h2>{isProjectData ? item.experience : item.description}</h2>
-      {isProjectData ? (
-        <button
-          className="btn btn-blue"
-          onClick={() => openModal(item)}
-        >
-          {item.link ? "Click here to visit project" : "Learn More"}
-        </button>
-      ) : (
-        <button
-          className="btn btn-blue"
-          onClick={() => openModal(item)}
-        >
-          Click here to watch more
-        </button>
-      )}
-    </div>
-  ))}
-</section>
-
+        {items.map((item, idx) => (
+          <section
+            key={idx}
+            className="semester-section"
+            
+          >
+            <div
+              id="project-container"
+              className={`item ${selectedIndex === idx ? "selected" : ""}`}
+              ref={(el) => (itemRefs.current[idx] = el)}
+            >
+              <h1>{isProjectData ? item.projectname : item.activityTitle}</h1>
+              <div className="image-container">
+                <img
+                  src={isProjectData ? item.picture : item.image}
+                  alt={isProjectData ? item.projectname : item.activityTitle}
+                  id="project-image"
+                />
+              </div>
+              <h2>{isProjectData ? item.experience : item.description}</h2>
+              {isProjectData ? (
+                <button
+                  className="btn btn-blue"
+                  onClick={() => openModal(item)}
+                >
+                  {item.link ? "Click here to visit project" : "Learn More"}
+                </button>
+              ) : (
+                <button
+                  className="btn btn-blue"
+                  onClick={() => openModal(item)}
+                >
+                  Click here to watch more
+                </button>
+              )}
+            </div>
+          </section>
+        ))}
       </div>
 
       {/* Modal */}
@@ -128,11 +124,13 @@ function Project() {
           <div className="modal-content">
             <h2>{modalContent?.projectname || modalContent?.activityTitle}</h2>
             <p>{modalContent?.experience || modalContent?.description}</p>
+            <div className="modal-image-container">
             <img
               src={modalContent?.picture || modalContent?.image}
               alt={modalContent?.projectname || modalContent?.activityTitle}
               className="modal-image"
             />
+            </div>
             <button className="btn btn-close" onClick={closeModal}>
               Close (Backspace)
             </button>

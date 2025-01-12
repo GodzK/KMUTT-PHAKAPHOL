@@ -114,6 +114,7 @@ function Activity() {
                   src={activity.image}
                   alt={activity.activityTitle}
                   className="activity-image"
+                  onClick={() => openModal(activity)}
                 />
               </div>
               <p>{activity.description}</p>
@@ -135,6 +136,7 @@ function Activity() {
                   src={modalContent.activitypic[autoSlideIndex]}
                   alt={modalContent.activityTitle}
                   className="modal-image"
+  
                 />
               )}
             </div>
