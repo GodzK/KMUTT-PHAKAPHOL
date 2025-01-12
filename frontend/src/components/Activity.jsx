@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ActivityData } from "../../Backend/Data";
 import "../App.css";
 
@@ -10,8 +10,8 @@ function Activity() {
   const [autoSlideIndex, setAutoSlideIndex] = useState(0);
 
   const activities = ActivityData[currentSemesterIndex]?.Activity1 || [];
-  const activityRefs = useRef([]); // Store references for activities
-  const modalIntervalRef = useRef(null); // Store interval reference
+  const activityRefs = useRef([]); 
+  const modalIntervalRef = useRef(null); 
 
   const openModal = (content) => {
     setModalContent(content);
@@ -21,7 +21,7 @@ function Activity() {
   const closeModal = () => {
     setIsModalOpen(false);
     setModalContent(null);
-    clearInterval(modalIntervalRef.current); // Clear the interval when modal closes
+    clearInterval(modalIntervalRef.current); 
   };
 
   const handleKeyDown = (event) => {
@@ -91,7 +91,9 @@ function Activity() {
       <div id="activity">
         <h1 data-aos="fade-up" className="main-title">
           {ActivityData[currentSemesterIndex]?.Semester}
+          <p>press enter to see detail</p>
         </h1>
+        
         <section
           className="semester-section"
           data-aos="fade-up"
@@ -115,12 +117,6 @@ function Activity() {
                 />
               </div>
               <p>{activity.description}</p>
-              <button
-                className="btn btn-blue"
-                onClick={() => openModal(activity)}
-              >
-                Click here to watch more
-              </button>
             </div>
           ))}
         </section>
