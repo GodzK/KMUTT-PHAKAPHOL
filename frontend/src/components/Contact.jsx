@@ -23,13 +23,13 @@ function Contact({ setCurrentPage }) {
                 </a>
               </div>
             </div>
-            <div className="card" id="li">
+            <div className="card" id="gh">
               <div className="card-text">
                 <a
-                  href="https://www.linkedin.com/in/phakaphol-dherachaisuprakij-1092ab256/"
+                  href="https://github.com/GodzK"
                   target="_blank"
                 >
-                  LinkedIn: Phakaphol
+                  Github Profile
                 </a>
               </div>
             </div>
