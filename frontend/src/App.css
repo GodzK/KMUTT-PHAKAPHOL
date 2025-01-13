@@ -435,34 +435,28 @@ p, li {
   width: 800px;
   gap: 10px;
 }
-@media screen and (min-width: 1000px) {
+@media screen and (max-width: 1000px) {
   #semester-section {
       width: 400px; 
      
   }
 }
-.semester-section {
+#semester-section {
   margin-bottom: 50px;
   padding: 20px;
+  width: 100%;
+  height: auto ;
   border: 1px solid #444;
   border-radius: 10px;
   background-color: #292929;
 }
 
 
-.image-container img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 800px; 
-  overflow: hidden; 
-  margin: 0 auto; 
-}
+
 
 .image-container #project-image {
   width: 100%; 
-  max-width: 100%; 
+  max-width: 1000px; 
   height: auto; 
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);

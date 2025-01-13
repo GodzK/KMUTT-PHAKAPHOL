@@ -55,12 +55,6 @@ export const ActivityData = [
           description: "The Camp promotes unity and friendship among students.",
           activitypic : [tpr1,tpr2,tpr3,tpr4],
         },
-        {
-          activityTitle: "TuePunrak 19th (English Teacher)",
-          Semester: "Semester 1",
-          image: tpr,  
-          description: "The Camp promotes unity and friendship among students."
-        }
 
       ]
     },
