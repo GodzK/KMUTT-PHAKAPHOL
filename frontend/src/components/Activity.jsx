@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { ActivityData } from "../../Backend/Data";
+import GoBackButton from "./GoBackButton";
 import "../App.css";
 
-function Activity() {
+function Activity({ setCurrentPage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [selectedActivityIndex, setSelectedActivityIndex] = useState(0);
@@ -89,6 +90,7 @@ function Activity() {
   return (
     <>
       <div id="activity">
+      <GoBackButton setCurrentPage={setCurrentPage} />
         <h1 data-aos="fade-up" className="main-title">
           {ActivityData[currentSemesterIndex]?.Semester}
           <p>press enter to see detail</p>

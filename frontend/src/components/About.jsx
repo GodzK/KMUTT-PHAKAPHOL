@@ -1,8 +1,9 @@
 import profile from "../assets/profile.jpg";
-
-function About() {
+import GoBackButton from "./GoBackButton";
+function About({ setCurrentPage }) {
   return (
     <div className="content">
+      <GoBackButton setCurrentPage={setCurrentPage} />
               <h1 data-aos="fade-up">Hi, I'm Phakaphol Dherachaisuphakij!</h1>
               <p data-aos="fade-right" className="about-description">
                 A passionate <strong>developer</strong>, <strong>Blogger</strong>,

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ActivityData, projectdata } from "../../Backend/Data";
 import "../App.css";
-
-function Project() {
+import GoBackButton from "./GoBackButton";
+function Project({ setCurrentPage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -74,6 +74,7 @@ function Project() {
 
   return (
     <>
+    <GoBackButton setCurrentPage={setCurrentPage} />
       <div id="project" data-aos="fade-up" >
         <h1 data-aos="fade-up" className="main-title">
           {isProjectData ? "Projects" : "Activities"}
@@ -85,7 +86,7 @@ function Project() {
             
           >
             <div
-              id="project-container"
+              id="semester-section"
               className={`item ${selectedIndex === idx ? "selected" : ""}`}
               ref={(el) => (itemRefs.current[idx] = el)}
             >

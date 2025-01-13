@@ -1,7 +1,9 @@
 import React from 'react'
-function Contact() {
+import GoBackButton from "./GoBackButton";
+function Contact({ setCurrentPage }) {
   return (
     <div className="content" data-aos="fade-up">
+       <GoBackButton setCurrentPage={setCurrentPage} />
           <h1>Contact</h1>
           <div className="card-container">
             <div className="card" id="ig">

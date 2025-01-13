@@ -1,7 +1,9 @@
 import React from 'react'
-function Skill() {
+import GoBackButton from "./GoBackButton";
+function Skill({ setCurrentPage }) {
   return (
     <div className="content">
+      <GoBackButton setCurrentPage={setCurrentPage} />
           <h1>Skills</h1>
           <div className="skill-bar-container">
             <div className="skill-bar">

@@ -97,11 +97,11 @@ function App() {
           </p>
         </div>
       )}
-      {currentPage === "about" && <About />}
-      {currentPage === "activity" && <Activity />}
-      {currentPage === "projects" && <Project />}
-      {currentPage === "skills" && <Skill />}
-      {currentPage === "contact" && <Contact />}
+      {currentPage === "about" && <About setCurrentPage={setCurrentPage} />}
+      {currentPage === "activity" && <Activity setCurrentPage={setCurrentPage} />}
+      {currentPage === "projects" && <Project setCurrentPage={setCurrentPage} />}
+      {currentPage === "skills" && <Skill setCurrentPage={setCurrentPage} />}
+      {currentPage === "contact" && <Contact setCurrentPage={setCurrentPage} />}
     </div>
   );
 }
