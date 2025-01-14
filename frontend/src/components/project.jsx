@@ -123,8 +123,8 @@ function Project({ setCurrentPage }) {
       {isModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>{modalContent?.projectname || modalContent?.activityTitle}</h2>
-            <p>{modalContent?.experience || modalContent?.description}</p>
+            <p>{modalContent?.projectname || modalContent?.activityTitle}</p>
+            <h2>{modalContent?.experience || modalContent?.description}</h2>
             <div className="modal-image-container">
             <img
               src={modalContent?.picture || modalContent?.image}

@@ -119,7 +119,7 @@ function Activity({ setCurrentPage }) {
                   onClick={() => openModal(activity)}
                 />
               </div>
-              <p>{activity.description}</p>
+              
             </div>
           ))}
         </section>
@@ -129,8 +129,8 @@ function Activity({ setCurrentPage }) {
       {isModalOpen && modalContent && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>{modalContent.activityTitle}</h2>
-            <p>{modalContent.description}</p>
+            <p>{modalContent.activityTitle}</p>
+            <h2>{modalContent.description}</h2>
             <div className="modal-image-container">
               {/* Display images based on the autoSlideIndex */}
               {modalContent.activitypic && modalContent.activitypic.length > 0 && (

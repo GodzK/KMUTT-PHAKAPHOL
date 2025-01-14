@@ -44,7 +44,7 @@ export const ActivityData = [
           activityTitle: "Borntodev Devinit (Frontend Developer) ",
           Semester: "Before Semester 1",
           image: devinitport,  
-          description: "Blogger Wrinting a frontned developer content",
+          description: "Blogger Wrinting a frontned developer content is a good experience for me this work make me known how to ",
           activitypic : [gsap,css,blogreact],
         },
 
