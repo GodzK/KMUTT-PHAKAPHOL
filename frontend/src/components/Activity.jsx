@@ -110,7 +110,7 @@ function Activity({ setCurrentPage }) {
               ref={(el) => (activityRefs.current[idx] = el)} // Set reference for each activity
             >
               <h3>{activity.activityTitle}</h3>
-              <h2>{activity.Semester}</h2>
+              <h2>{activity.activityTitle}</h2>
               <div className="image-container">
                 <img
                   src={activity.image}

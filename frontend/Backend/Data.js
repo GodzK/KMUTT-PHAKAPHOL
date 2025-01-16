@@ -10,6 +10,7 @@ import devinitport from "../../frontend/src/assets/Devinit/devinit.jpg"
 import gsap from "../../frontend/src/assets/Devinit/gsap.png"
 import css from "../../frontend/src/assets/Devinit/css.png"
 import blogreact from "../../frontend/src/assets/Devinit/react.png"
+import iot2 from "../../frontend/src/IOT/iot.jpg"
 export const projectdata = [
     {
         projectname: "PK Shop",
@@ -38,7 +39,7 @@ export const projectdata = [
 
 export const ActivityData = [
     {
-      Semester: "Activity",
+      Semester: "Semester 1 ",
       Activity1: [
         {
           activityTitle: "Borntodev Devinit (Frontend Developer) ",
@@ -55,11 +56,34 @@ export const ActivityData = [
           description: "The Camp promotes unity and friendship among students.",
           activitypic : [tpr1,tpr2,tpr3,tpr4],
         },
+        {
+          activityTitle: "IOT HACKATRON",
+          Semester: "Semester 1",
+          image: iot2,  
+          description: "This is my first hackatron in kmutt i've learned a lot of lesson about hosting and building web application and using ai with yolo",
+          activitypic : [tpr1,tpr2,tpr3,tpr4],
+        },
 
       ]
     },
     {
       Semester: "Semester 2",
+      Activity1: [
+        {
+          activityTitle: "TuePunrak 18th (English Teacher)",
+          image: tpr,  
+          description: "The Camp promotes unity and friendship among students."
+        },
+        {
+          activityTitle: "TuePunrak 19th (English Teacher)",
+          image: tpr,  
+          description: "The Camp promotes unity and friendship among students."
+        }
+
+      ]
+    },
+    {
+      Semester: "Semester 3",
       Activity1: [
         {
           activityTitle: "TuePunrak 18th (English Teacher)",
