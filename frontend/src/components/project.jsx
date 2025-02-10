@@ -83,7 +83,6 @@ function Project({ setCurrentPage }) {
           <section
             key={idx}
             className="semester-section"
-            
           >
             <div
               id="semester-section"

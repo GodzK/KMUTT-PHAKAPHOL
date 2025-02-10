@@ -94,6 +94,7 @@ function Activity({ setCurrentPage }) {
         <h1 data-aos="fade-up" className="main-title">
           {ActivityData[currentSemesterIndex]?.Semester}
           <p>press enter to see detail</p>
+          <p>LEFT AND RIGHT to go next page</p>
         </h1>
         
         <section
@@ -122,7 +123,9 @@ function Activity({ setCurrentPage }) {
               
             </div>
           ))}
+          
         </section>
+        <p>LEFT AND RIGHT to go next page</p>
       </div>
 
       {/* Modal */}
@@ -145,6 +148,7 @@ function Activity({ setCurrentPage }) {
             <button className="btn btn-close" onClick={closeModal}>
               Close (Backspace)
             </button>
+            
           </div>
         </div>
       )}
