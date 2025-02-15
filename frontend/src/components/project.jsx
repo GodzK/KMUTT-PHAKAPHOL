@@ -85,8 +85,8 @@ function Project({ setCurrentPage }) {
             className="semester-section"
           >
             <div
-              id="semester-section"
-              className={`item ${selectedIndex === idx ? "selected" : ""}`}
+              
+              className={`activity-item ${selectedIndex === idx ? "selected" : ""}`}
               ref={(el) => (itemRefs.current[idx] = el)}
             >
               <h1>{isProjectData ? item.projectname : item.activityTitle}</h1>
