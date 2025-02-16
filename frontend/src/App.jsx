@@ -8,7 +8,7 @@ import Skill from "./components/Skill";
 import Project from "./components/project";
 import Activity from "./components/Activity";
 import About from "./components/About";
-
+import ASCIIText from './components/ASCIIText';
 AOS.init();
 
 const AboutMe = ({ currentPage }) => {
@@ -78,7 +78,12 @@ function App() {
       ></video>
       {currentPage === "menu" && (
         <div className="content">
-          <h1 className="game-title">Phakaphol Portfolio</h1>
+          <ASCIIText
+  text='Phakaphol Portfolio'
+  enableWaves={true}
+  asciiFontSize={8}
+/>
+          <h1 className="game-title">Portfolio</h1>
           <ul className="menu">
             {menuItems.map((item, index) => (
               <li
