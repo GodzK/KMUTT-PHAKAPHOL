@@ -10,7 +10,12 @@ import devinitport from "../../frontend/src/assets/Devinit/devinit.jpg"
 import gsap from "../../frontend/src/assets/Devinit/gsap.png"
 import css from "../../frontend/src/assets/Devinit/css.png"
 import blogreact from "../../frontend/src/assets/Devinit/react.png"
-import iot2 from "../../frontend/src/IOT/iot.jpg"
+import iot1 from "../../frontend/src/IOT/iot.jpg"
+import iotmain from "../../frontend/src/IOT/iotmain.jpg"
+import iot2 from "../../frontend/src/IOT/iot2.jpg"
+import iot3 from "../../frontend/src/IOT/iot3.jpg"
+import iot4 from "../../frontend/src/IOT/iot4.jpg"
+import iot5 from "../../frontend/src/IOT/iot5.jpg"
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png"
 export const projectdata = [
     {
@@ -68,9 +73,9 @@ export const ActivityData = [
         {
           activityTitle: "IOT HACKATRON",
           Semester: "Semester 1",
-          image: iot2,  
+          image: iot1,  
           description: "This is my first hackatron in kmutt i've learned a lot of lesson about hosting and building web application and using ai with yolo",
-          activitypic : [tpr1,tpr2,tpr3,tpr4],
+          activitypic : [iotmain,iot2,iot3,iot4,iot5],
         },
 
       ]
