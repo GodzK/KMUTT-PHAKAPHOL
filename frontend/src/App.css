@@ -142,137 +142,106 @@ p, li {
   }
 
 
-/* Skill Bars Styling */
-.skill-bar-container {
-    margin-top: 30px;
-    padding: 20px;
-    width: 100%; /* Ensure the container is taking full width */
-}
-
-.skill-bar {
-    position: relative;
+  .skill-content {
+    padding: 40px;
+    overflow-y: auto;
+    height: 100vh;
+    margin: 0 auto;
+  }
+  
+  .skill-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #f0f0f0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .skill-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+  
+  .skill-category {
+    flex: 1 1 350px;
+    min-width: 350px;
+    background: rgba(25, 25, 25, 0.6); /* Dark glass background */
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px); /* Glassmorphism blur */
+    border: 1px solid rgba(50, 50, 50, 0.5); /* Glass border */
+  }
+  
+  .skill-category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  }
+  
+  .category-title {
     margin-bottom: 20px;
-    background-color: #ddd;
+    font-size: 2em;
+    color: #f0f0f0;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+  }
+  
+  .skill-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    max-height: 400px; /* Set a maximum height for the cards */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-right: 10px; /* Space for scrollbar */
+  }
+  
+  .skill-card {
+    padding: 20px;
     border-radius: 10px;
-    height: 70px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: rgba(30, 30, 30, 0.7); /* Darker glass for cards */
+    border: 1px solid rgba(60, 60, 60, 0.6);
+    backdrop-filter: blur(8px);
+  }
+  
+  .skill-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  }
+  
+  .skill-card-content {
     width: 100%;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-}
-
-.skill-name {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 28px;
+  }
+  
+  .skill-name {
     font-weight: bold;
-    color: #333;
-    z-index: 15; 
-}
-
-.skill-bar-fill {
-    height: 100%;
-    border-radius: 10px;
-    z-index: 5;
-    width: 0; 
-    transition: width 2s ease-in-out;
-}
-
-/* Specific skill bar fills */
-.js {
-    background-color: yellow;
-}
-
-.python {
-    background-color: darkblue;
-}
-
-.css {
-    background-color: lightblue;
-}
-
-.node {
-    background-color: green;
-}
-
-.mongo {
-    background-color: darkgreen;
-}
-
-.html {
-    background-color: rgb(255, 7, 7);
-}
-
-
-.skill-bar-fill.js {
-    animation: fillBar100 2s forwards;
-}
-
-.skill-bar-fill.python {
-    animation: fillBar70 2s forwards 0.2s;
-}
-
-.skill-bar-fill.css {
-    animation: fillBar80 2s forwards 0.4s;
-}
-
-.skill-bar-fill.node {
-    animation: fillBar60 2s forwards 0.6s;
-}
-
-.skill-bar-fill.mongo {
-    animation: fillBar40 2s forwards 0.8s;
-}
-
-.skill-bar-fill.html {
-    animation: fillBar100 2s forwards 1s;
-}
-
-@keyframes fillBar100 {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100%;
-    }
-}
-@keyframes fillBar80 {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 80%;
-    }
-}
-@keyframes fillBar70 {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 70%;
-    }
-}
-@keyframes fillBar60 {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 60%;
-    }
-}
-@keyframes fillBar40 {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 40%;
-    }
-}
-
-
-/* card section */
-/* Container for the grid */
+    font-size: 1.3em;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  .skill-level {
+    font-size: 1em;
+    color: #bbb;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+  
+  .skill-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #999;
+  }
 .card-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
@@ -603,4 +572,53 @@ p, li {
 .go-back-button:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0px #000;
+}
+
+.instructions {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.instructions:hover {
+  background-color: #30c7ff;
+  color: black;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.arrow-btn {
+  display: inline-block;
+  background-color: rgba(40, 40, 40, 0.7);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.arrow-btn:hover {
+  background-color: #30c7ff;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+.next-semester-container {
+  position: absolute; /* กำหนด position absolute ให้กับ container ของปุ่ม */
+  top: 10px; /* ปรับตำแหน่งตามต้องการ */
+  right: 10px; /* ปรับตำแหน่งตามต้องการ */
 }

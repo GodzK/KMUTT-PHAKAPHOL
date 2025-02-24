@@ -98,8 +98,10 @@ function App() {
             ))}
           </ul>
           <p className="instructions">
-            Use Arrow Keys to Navigate, Enter to Select, or Click to Choose
-          </p>
+  <div>
+  Use <kbd className="arrow-btn">←</kbd> <kbd className="arrow-btn">↑</kbd> <kbd className="arrow-btn">↓</kbd> <kbd className="arrow-btn">→</kbd> 
+    </div>to Navigate, Enter to Select, or Click to Choose
+</p>
         </div>
       )}
       {currentPage === "about" && <About setCurrentPage={setCurrentPage} />}
