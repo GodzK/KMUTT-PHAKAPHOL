@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ActivityData } from "../../Backend/Data";
 import GoBackButton from "./GoBackButton";
-import "../App.css";
+import "./activity.css";
 
 function Activity({ setCurrentPage }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -89,18 +89,25 @@ function Activity({ setCurrentPage }) {
 
   return (
     <>
-      <div id="activity">
+      <div id="activity" >
       <GoBackButton setCurrentPage={setCurrentPage} />
-        <h1 data-aos="fade-up" className="main-title">
+        <h1 data-aos="fade-up" className="main-title" style={{color:"white"}}>
           {ActivityData[currentSemesterIndex]?.Semester}
+          <span className="semester-progress">
+              ({currentSemesterIndex + 1} of {ActivityData.length})
+            </span>
           <p>press enter to see detail</p>
-          <p>LEFT AND RIGHT to go next page</p>
+          <div style={{gap:"1rem"}}>
+          <p><kbd className="arrow-btn">←</kbd><kbd className="arrow-btn" id="la">→</kbd> To go to next page</p>
+          </div>
+          
         </h1>
         
         <section
           className="semester-section"
           data-aos="fade-up"
           data-aos-delay="200"
+          style={{width:"50%"}}
         >
           {activities.map((activity, idx) => (
             <div
@@ -108,10 +115,11 @@ function Activity({ setCurrentPage }) {
                 selectedActivityIndex === idx ? "selected" : ""
               }`}
               key={idx}
+              style={{background:"transparent"}}
               ref={(el) => (activityRefs.current[idx] = el)} // Set reference for each activity
             >
-              <h3>{activity.activityTitle}</h3>
-              <h2>{activity.activityTitle}</h2>
+              <h3 style={{color:"white"}}>{activity.activityTitle}</h3>
+              <h6 style={{fontSize:"1.3rem"}}>{activity.description}</h6>
               <div className="image-container">
                 <img
                   src={activity.image}

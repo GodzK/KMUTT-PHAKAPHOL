@@ -6,17 +6,50 @@
     --button-hover-color: #ff0000;
     --font-family: 'Press Start 2P', cursive;
 }
+.arrow-btn-container{
+  display: flex;
+}
+#la{
+  margin-left: 10px;
+}
 @media (max-width: 480px) {
-  .game-title {
-      font-size: 4rem;
-      margin-bottom: 20px;
+  .main-title {
+    font-size: 2.5rem; /* Smaller title on mobile */
+    margin-bottom: 10px;
   }
-  .game-button {
-      font-size: 1rem;
-      padding: 8px 16px;
+  .semester-section {
+    width: 90%; /* More flexible width */
+    padding: 10px;
+  }
+  .activity-item {
+    padding: 8px;
+    margin-bottom: 8px;
   }
   .activity-image {
-      width: 90%; 
+    width: 80vw; /* Adjusted for smaller screens */
+  }
+  .modal-content {
+    width: 90%; /* Ensure modal fits smaller screens */
+    padding: 10px;
+  }
+  .modal-image {
+    width: 100%; /* Full width on small screens */
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .semester-section {
+    width: 80%;
+  }
+  #project-container {
+    width: 90%; /* Adjust project container */
+  }
+}
+
+@media (max-width: 1000px) {
+  #semester-section {
+    width: 90%; /* Consistent with your original tweak */
   }
 }
 
@@ -315,29 +348,27 @@ p, li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   overflow-y: auto;
-  height: 100vh; 
+  
+  height: 100vh;
+  padding: 20px; 
 }
-
 .main-title {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 6vw, 4rem); /* Responsive font size */
   text-align: center;
   margin-bottom: 20px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   color: #ffffff;
-  justify-content: center;
-  align-items: center;
 }
 
 .semester-section {
   padding: 20px;
-  width: 50%;
-  gap: 20px;
-  border-radius: 8px;
+  width: clamp(300px, 50%, 800px); 
   background-color: #292929;
+  border-radius: 8px;
+  margin-bottom: 20px;
 }
-
 .semester-section h2 {
   font-size: 2rem;
   color: #fcfdff;
@@ -355,11 +386,12 @@ p, li {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: auto;
   text-align: center;
   padding: 10px;
   margin-bottom: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
+  cursor: pointer; /* Indicate clickability */
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
   border-radius: 10px;
   background-color: #222;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);

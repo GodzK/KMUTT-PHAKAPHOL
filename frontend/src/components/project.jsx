@@ -76,20 +76,21 @@ function Project({ setCurrentPage }) {
     <>
     <GoBackButton setCurrentPage={setCurrentPage} />
       <div id="project" data-aos="fade-up" >
-        <h1 data-aos="fade-up" className="main-title">
+        <h1 data-aos="fade-up" className="main-title" style={{color:"white",fontSize:"5rem"}}>
           {isProjectData ? "Projects" : "Activities"}
         </h1>
         {items.map((item, idx) => (
           <section
             key={idx}
             className="semester-section"
+            style={{width:"50%"}}
           >
             <div
-              
               className={`activity-item ${selectedIndex === idx ? "selected" : ""}`}
+              style={{background:"transparent",width:"100%",height:"100%"}}
               ref={(el) => (itemRefs.current[idx] = el)}
             >
-              <h1>{isProjectData ? item.projectname : item.activityTitle}</h1>
+              <h1 style={{color:"white"}}>{isProjectData ? item.projectname : item.activityTitle}</h1>
               <div className="image-container">
                 <img
                   src={isProjectData ? item.picture : item.image}
@@ -97,7 +98,7 @@ function Project({ setCurrentPage }) {
                   id="project-image"
                 />
               </div>
-              <h2>{isProjectData ? item.experience : item.description}</h2>
+              <h6 style={{fontSize:"1.3rem"}}>{isProjectData ? item.experience : item.description}</h6>
               {isProjectData ? (
                 <button
                   className="btn btn-blue"
