@@ -133,7 +133,9 @@ function Activity({ setCurrentPage }) {
           ))}
           
         </section>
-        <p>LEFT AND RIGHT to go next page</p>
+        <div style={{gap:"1rem"}}>
+          <p><kbd className="arrow-btn">←</kbd><kbd className="arrow-btn" id="la">→</kbd> To go to next page</p>
+          </div>
       </div>
 
       {/* Modal */}
