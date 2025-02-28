@@ -1,5 +1,6 @@
 import profile from "../assets/profile.jpg";
 import GoBackButton from "./GoBackButton";
+
 function About({ setCurrentPage }) {
   return (
     <div className="content">

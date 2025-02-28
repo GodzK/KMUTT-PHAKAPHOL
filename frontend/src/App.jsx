@@ -8,7 +8,8 @@ import Skill from "./components/Skill";
 import Project from "./components/project";
 import Activity from "./components/Activity";
 import About from "./components/About";
-import ASCIIText from './components/ASCIIText';
+import ASCIIText from "./components/ASCIIText";
+import GlitchText from "./components/GlitchText";
 AOS.init();
 
 const AboutMe = ({ currentPage }) => {
@@ -79,11 +80,18 @@ function App() {
       {currentPage === "menu" && (
         <div className="content">
           <ASCIIText
-  text='Phakaphol Portfolio'
-  enableWaves={true}
-  asciiFontSize={8}
-/>
-          <h1 className="game-title">Portfolio</h1>
+            text="Phakaphol Portfolio"
+            enableWaves={true}
+            asciiFontSize={8}
+          />
+          <GlitchText
+            speed={1}
+            enableShadows={true}
+            enableOnHover={true}
+            className="custom-class"
+          >
+           Portfolio
+          </GlitchText>
           <ul className="menu">
             {menuItems.map((item, index) => (
               <li
@@ -98,15 +106,23 @@ function App() {
             ))}
           </ul>
           <p className="instructions">
-  <div>
-  Use <kbd className="arrow-btn">←</kbd> <kbd className="arrow-btn">↑</kbd> <kbd className="arrow-btn">↓</kbd> <kbd className="arrow-btn">→</kbd> 
-    </div>to Navigate, Enter to Select, or Click to Choose
-</p>
+            <div>
+              Use <kbd className="arrow-btn">←</kbd>{" "}
+              <kbd className="arrow-btn">↑</kbd>{" "}
+              <kbd className="arrow-btn">↓</kbd>{" "}
+              <kbd className="arrow-btn">→</kbd>
+            </div>
+            to Navigate, Enter to Select, or Click to Choose
+          </p>
         </div>
       )}
       {currentPage === "about" && <About setCurrentPage={setCurrentPage} />}
-      {currentPage === "activity" && <Activity setCurrentPage={setCurrentPage} />}
-      {currentPage === "projects" && <Project setCurrentPage={setCurrentPage} />}
+      {currentPage === "activity" && (
+        <Activity setCurrentPage={setCurrentPage} />
+      )}
+      {currentPage === "projects" && (
+        <Project setCurrentPage={setCurrentPage} />
+      )}
       {currentPage === "skills" && <Skill setCurrentPage={setCurrentPage} />}
       {currentPage === "contact" && <Contact setCurrentPage={setCurrentPage} />}
     </div>

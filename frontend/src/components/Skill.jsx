@@ -9,15 +9,18 @@ function Skill({ setCurrentPage }) {
     { name: "HTML5", category: "Frontend", level: "Expert", color: "#E34F26" },
     { name: "CSS3", category: "Frontend", level: "Expert", color: "#1572B6" },
     { name: "React.js ⚛️", category: "Frontend Framework", level: "Expert", color: "#61DAFB" },
-    { name: "Next.js ⚡", category: "Frontend Framework", level: "Advanced", color: "#000000" },
+    { name: "Next.js ⚡", category: "Frontend Framework", level: "Expert", color: "#000000" },
     { name: "Vue.js", category: "Frontend Framework", level: "Advanced", color: "#4FC08D" },
     { name: "Angular 🅰️", category: "Frontend Framework", level: "Intermediate", color: "#DD0031" },
     { name: "Tailwind CSS", category: "CSS Framework", level: "Expert", color: "#38B2AC" },
     { name: "Sass/SCSS", category: "CSS Preprocessor", level: "Advanced", color: "#C69" },
+    { name: "Sass/SCSS", category: "CSS Preprocessor", level: "Advanced", color: "#C69" },
+    
     { name: "GSAP", category: "Animation", level: "Expert", color: "#88D8B0" },
+    { name: "Lottie", category: "Animation", level: "Advanced", color: "#FFA500" },
+    { name: "Anime.js", category: "Animation", level: "Advanced", color: "#BB2B2B" },
     { name: "Framer Motion", category: "Animation", level: "Advanced", color: "#F7F7F7" },
     { name: "Three.js", category: "Animation", level: "Advanced", color: "#000000" },
-    { name: "Anime.js", category: "Animation", level: "Advanced", color: "#BB2B2B" },
    
     { name: "Bootstrap", category: "CSS Framework", level: "Expert", color: "#563D7C" },
     { name: "Ant Design", category: "CSS Framework", level: "Basic", color: "red" },
@@ -90,8 +93,8 @@ function Skill({ setCurrentPage }) {
                     <div className="skill-card-content p-4 text-center">
                       <div
                         className={`skill-name text-lg font-bold ${
-                          skill.color === "#000000" || skill.color === "#F7F7F7"
-                            ? "text-gray-800"
+                          skill.color === "#000000" || skill.color === "#000"
+                            ? "text-gray-black"
                             : "text-white"
                         }`}
                       >
