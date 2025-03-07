@@ -14,8 +14,6 @@ function Skill({ setCurrentPage }) {
     { name: "Angular 🅰️", category: "Frontend Framework", level: "Intermediate", color: "#DD0031" },
     { name: "Tailwind CSS", category: "CSS Framework", level: "Expert", color: "#38B2AC" },
     { name: "Sass/SCSS", category: "CSS Preprocessor", level: "Advanced", color: "#C69" },
-    { name: "Sass/SCSS", category: "CSS Preprocessor", level: "Advanced", color: "#C69" },
-    
     { name: "GSAP", category: "Animation", level: "Expert", color: "#88D8B0" },
     { name: "Lottie", category: "Animation", level: "Advanced", color: "#FFA500" },
     { name: "Anime.js", category: "Animation", level: "Advanced", color: "#BB2B2B" },
@@ -41,6 +39,7 @@ function Skill({ setCurrentPage }) {
     { name: "GraphQL", category: "Database", level: "Basic", color: "#E10098" },
     { name: "Firebase", category: "Database", level: "Intermediate", color: "#FFCA28" },
     { name: "Docker", category: "DevOps", level: "Basic", color: "#2496ED" },
+    { name: "Github", category: "DevOps", level: "Expert", color: "#0000" },
     { name: "Kubernetes ☸️", category: "DevOps", level: "Basic", color: "#326CE5" },
     { name: "AWS ☁️", category: "Cloud", level: "Basic", color: "#FF9900" },
     { name: "AZURE ☁️", category: "Cloud", level: "Basic", color: "#4285F4" },
@@ -60,7 +59,7 @@ function Skill({ setCurrentPage }) {
   };
 
   return (
-    <div className="skill-content px-6 py-10 bg-black min-h-screen text-white">
+    <div className="skill-content px-6 py-10 bg-gradient-to-br from-gray-900 via-indigo-950 to-black min-h-screen text-white">
       <GoBackButton setCurrentPage={setCurrentPage} />
       <h1 className="skill-title text-5xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
         My Tech Universe

@@ -78,7 +78,7 @@ function App() {
         muted
       ></video>
       {currentPage === "menu" && (
-        <div className="content">
+        <div className="content bg-gradient-to-br from-gray-900 via-indigo-950 to-black">
           <ASCIIText
             text="Phakaphol Portfolio"
             enableWaves={true}
