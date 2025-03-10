@@ -35,6 +35,16 @@ function About({ setCurrentPage }) {
   const cvUrl = "/path/to/your-cv.pdf";
 
   return (
+    <>
+        <motion.div
+  className="fixed top-4 left-4 z-50" // ใช้ fixed เพื่อให้ติดมุมขวาบนตลอด
+  initial={{ opacity: 0, x: 50 }} // เริ่มต้นจากนอกจอด้านขวา
+  animate={{ opacity: 1, x: 0 }} // เลื่อนเข้ามาด้วยความนุ่มนวล
+  transition={{ duration: 0.5, ease: "easeOut" }} // อนิเมชันลื่นไหล
+  whileHover={{ scale: 1.1 }} // ขยายเล็กน้อยเมื่อ hover
+>
+  <GoBackButton setCurrentPage={setCurrentPage} />
+</motion.div>
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-950 to-black flex items-center justify-center p-4 sm:p-6 md:p-8">
       <motion.div
         className="w-full max-w-3xl flex flex-col gap-8"
@@ -42,10 +52,7 @@ function About({ setCurrentPage }) {
         animate="visible"
         variants={containerVariants}
       >
-        {/* Go Back Button */}
-        <div className="flex justify-start ">
-          <GoBackButton setCurrentPage={setCurrentPage} />
-        </div>
+    
 
         {/* Heading */}
         <motion.h1
@@ -56,17 +63,89 @@ function About({ setCurrentPage }) {
         </motion.h1>
 
         {/* Description */}
-        <motion.p
-          className="text-gray-200 text-base sm:text-lg md:text-xl text-center leading-relaxed"
-          variants={itemVariants}
-        >
-          A passionate <strong className="text-cyan-400">developer</strong>,{" "}
-          <strong className="text-purple-400">blogger</strong>, and{" "}
-          <strong className="text-pink-400">dreamer</strong>. I love building
-          web projects that blend creativity and technology. JavaScript is my
-          main language, and I’m obsessed with Front-End development while
-          diving into Back-End—super excited!
-        </motion.p>
+        <motion.div
+  className="relative text-center text-gray-200 max-w-3xl mx-auto"
+  variants={itemVariants}
+  initial="hidden"
+  animate="visible"
+  whileHover={{ scale: 1.02 }}
+>
+  {/* Background Glow Effect */}
+  <motion.div
+    className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 blur-3xl rounded-full -z-10"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 0.5, scale: 1.1 }}
+    transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+  />
+
+  {/* Text Content */}
+  <motion.p
+    className="text-base sm:text-lg md:text-xl leading-relaxed relative z-10"
+    transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+  >
+    I am a passionate{" "}
+    <motion.strong
+      className="text-red-600 font-bold"
+      whileHover={{ scale: 1.1, color: "#ff4040" }}
+      transition={{ duration: 0.3 }}
+    >
+      full-stack developer
+    </motion.strong>{" "}
+    with a cosmic curiosity for crafting{" "}
+    <span className="text-cyan-400 font-semibold">dynamic</span> and{" "}
+    <span className="text-purple-400 font-semibold">interactive</span> web
+    applications. My toolkit shines with{" "}
+    <motion.span
+      className="text-yellow-400 font-semibold"
+      whileHover={{ rotate: 360, scale: 1.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      React
+    </motion.span>
+    ,{" "}
+    <motion.span
+      className="text-black font-semibold"
+      whileHover={{ rotate: 360, scale: 1.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      Next.js
+    </motion.span>
+    ,{" "}
+    <motion.span
+      className="text-green-400 font-semibold"
+      whileHover={{ rotate: 360, scale: 1.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      Node.js
+    </motion.span>
+    , and{" "}
+    <motion.span
+      className="text-green-600 font-semibold"
+      whileHover={{ rotate: 360, scale: 1.2 }}
+      transition={{ duration: 0.5 }}
+    >
+      MongoDB
+    </motion.span>
+    , fused with a flair for{" "}
+    <span className="text-blue-400 font-semibold">AI integration</span> through
+    projects powered by{" "}
+    <motion.span
+      className="text-orange-400 font-semibold"
+      whileHover={{ scale: 1.2 }}
+      transition={{ duration: 0.3 }}
+    >
+      YOLO AI
+    </motion.span>{" "}
+    and{" "}
+    <span className="text-indigo-400 font-semibold">IoT solutions</span>. I
+    thrive on solving intricate challenges, enhancing{" "}
+    <span className="text-pink-400 font-semibold">user experiences</span>, and
+    orbiting around new technologies to expand my skill galaxy. Whether coding
+    solo or collaborating in a constellation, I’m committed to launching{" "}
+    <span className="text-teal-400 font-semibold">high-quality, scalable</span>{" "}
+    solutions that leave a stellar impact.
+  </motion.p>
+</motion.div>
 
         {/* Quote */}
         <motion.p
@@ -84,7 +163,7 @@ function About({ setCurrentPage }) {
           <img
             src={profile}
             alt="Phakaphol Dherachaisuphakij"
-            className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 object-cover rounded-xl shadow-lg border-4 border-cyan-500"
+            className="w-40 h-40 sm:w-64 sm:h-64 md:w-40 md:h-40 object-cover rounded-xl shadow-lg border-4 border-cyan-500"
           />
         </motion.div>
 
@@ -113,7 +192,7 @@ function About({ setCurrentPage }) {
           </a>
         </motion.div>
       </motion.div>
-    </div>
+    </div></>
   );
 }
 

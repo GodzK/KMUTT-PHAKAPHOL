@@ -185,9 +185,15 @@ function Activity({ setCurrentPage }) {
         touchAction: "pan-y",
       }}
     >
-      <div className="self-start sticky top-4 z-10">
-        <GoBackButton setCurrentPage={setCurrentPage} />
-      </div>
+      <motion.div
+  className="fixed top-4 left-4 z-50" // ใช้ fixed เพื่อให้ติดมุมขวาบนตลอด
+  initial={{ opacity: 0, x: 50 }} // เริ่มต้นจากนอกจอด้านขวา
+  animate={{ opacity: 1, x: 0 }} // เลื่อนเข้ามาด้วยความนุ่มนวล
+  transition={{ duration: 0.5, ease: "easeOut" }} // อนิเมชันลื่นไหล
+  whileHover={{ scale: 1.1 }} // ขยายเล็กน้อยเมื่อ hover
+>
+  <GoBackButton setCurrentPage={setCurrentPage} />
+</motion.div>
       <motion.div
         className="w-full max-w-2xl mx-auto flex flex-col gap-12"
         initial="hidden"
