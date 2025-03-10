@@ -16,39 +16,49 @@ import iot2 from "../../frontend/src/IOT/iot2.jpg"
 import iot3 from "../../frontend/src/IOT/iot3.jpg"
 import iot4 from "../../frontend/src/IOT/iot4.jpg"
 import iot5 from "../../frontend/src/IOT/iot5.jpg"
+import it3k from "../../frontend/src/assets/IT3K/3klogo.png"
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png"
 export const projectdata = [
+  {
+    projectname: "IT 3KINGS 19TH Web Appication ",
+    description: "This project is a dynamic web application built using Next.js, a powerful React-based framework that enables Server-Side Rendering (SSR) and Static Site Generation (SSG). The application is designed to provide an interactive tournament bracket management system, primarily focusing on badminton and ping pong tournaments. Users can view and manage match schedules and results efficiently. The platform caters to both general viewers and administrators, ensuring a seamless experience for tracking tournament progress and updating match details.",
+    techStack: ["Next.JS", "Css", "AXIOS","Typescript","react-zoom-pan-pinch"],
+    picture: it3k,
+    experience: "This project is a dynamic web application built using Next.js, a React-based framework, to create an interactive tournament bracket management system. The application, named  allows users to view and manage match schedules and results for sports tournaments, with a primary focus on badminton and ping pong. It is designed to cater to both general viewers and administrators, offering a seamless experience for tracking tournament progress and updating match details.",
+    link: "https://it3k.sit.kmutt.ac.th/"
+  },
+  {
+    projectname: "IOTSMARTSCAN AI",
+    description: "This is an IoT-based full-stack web application that incorporates AI-powered object detection using YOLO (You Only Look Once) for real-time scanning and recognition. The project integrates both frontend and backend technologies to deliver a seamless and intelligent scanning experience.",
+    techStack: ["React", "Css", "YoloAi","Node.js"],
+    picture: iot,
+    experience: "I learned how to build an end-to-end full-stack application, integrate AI models into a web application, and optimize real-time data processing for IoT devices. ",
+    link: "https://p-koin.vercel.app/"
+},
     {
         projectname: "PK Shop",
-        description: "🎮 FullStack Website for buying Game 🎮",
+        description: "🎮A full-stack e-commerce website for purchasing games. This platform allows users to browse, select, and buy games with a fully integrated shopping cart and backend API for handling transactions. 🎮",
         techStack: ["React", "Express.JS", "Node.js", "MongoDB"],
         picture: pkshop,
-        experience: "This project taught me how frontend passes data to the backend using APIs and how Axios works!"
+        experience: "I gained valuable experience in full-stack development, specifically in how frontend components communicate with backend APIs. Additionally, I learned how to use Axios for making API requests and managing state in React applications."
     },
     {
         projectname: "PKCrypto",
-        description: "🎮 Cryto API  🎮",
+        description: "A cryptocurrency tracking application that utilizes an API to fetch real-time data on various cryptocurrencies. The project focuses on fetching, displaying, and updating crypto prices dynamically.",
         techStack: ["React", "Css"],
         picture: crypto,
-        experience: "This is Crypto Api that makes me learn how to fetch API and level up my CSS styling skills",
+        experience: "This project helped me understand API integration, working with real-time data, and improving my CSS styling skills to present financial data in a clean and structured format.",
         link: "https://p-koin.vercel.app/"
     },
-    {
-      projectname: "IOTSMARTSCAN AI",
-      description: "🎮IOT for watch  🎮",
-      techStack: ["React", "Css", "YoloAi","Node.js"],
-      picture: iot,
-      experience: "This is a Iot project that  fullstack web and using ai ",
-      link: "https://p-koin.vercel.app/"
-  },
   {
     projectname: "Hello World Booking Application ",
-    description: "🎮IOT for watch  🎮",
+    description: "A full-stack booking system that allows users to book appointments and manage reservations. This project was developed as part of a team collaboration, where I was responsible for building the backend API for booking management.",
     techStack: ["React", "Css", "YoloAi","Node.js"],
     picture: Helloworld,
-    experience: "First Fullstack with collaboration team im in Backend create Booking Api with rest api",
+    experience: "This was my first full-stack project where I worked collaboratively in a team. I focused on backend development, creating a REST API to manage bookings, and ensuring smooth data transactions between the frontend and backend.",
     link: "https://github.com/GodzK/Fullstack-Booking"
 },
+
 ];
 
 export const ActivityData = [

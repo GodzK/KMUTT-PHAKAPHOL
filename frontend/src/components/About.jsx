@@ -31,7 +31,7 @@ function About({ setCurrentPage }) {
     },
   };
 
-  // Replace this with the actual path to your CV file
+
   const cvUrl = "/path/to/your-cv.pdf";
 
   return (
@@ -43,7 +43,7 @@ function About({ setCurrentPage }) {
         variants={containerVariants}
       >
         {/* Go Back Button */}
-        <div className="flex justify-start">
+        <div className="flex justify-start ">
           <GoBackButton setCurrentPage={setCurrentPage} />
         </div>
 
