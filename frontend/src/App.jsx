@@ -10,6 +10,7 @@ import Activity from "./components/Activity";
 import About from "./components/About";
 import ASCIIText from "./components/ASCIIText";
 import GlitchText from "./components/GlitchText";
+import Experience from "./components/Experience";
 AOS.init();
 
 const AboutMe = ({ currentPage }) => {
@@ -38,6 +39,7 @@ function App() {
     { page: "projects", label: "Projects" },
     { page: "activity", label: "Activity" },
     { page: "skills", label: "Skills" },
+    { page: "experience", label: "Experience" },
     { page: "contact", label: "Contact" },
   ];
 
@@ -124,6 +126,7 @@ function App() {
         <Project setCurrentPage={setCurrentPage} />
       )}
       {currentPage === "skills" && <Skill setCurrentPage={setCurrentPage} />}
+      {currentPage === "experience" && <Experience setCurrentPage={setCurrentPage} />}
       {currentPage === "contact" && <Contact setCurrentPage={setCurrentPage} />}
     </div>
   );

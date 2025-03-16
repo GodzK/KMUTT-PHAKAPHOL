@@ -101,7 +101,7 @@ function Contact({ setCurrentPage }) {
       style={{
         fontFamily: "'Inter', sans-serif",
       }}
-    >
+    >  <GoBackButton setCurrentPage={setCurrentPage} />
       {/* Cosmic Background Effect */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="stars"></div>
@@ -115,15 +115,7 @@ function Contact({ setCurrentPage }) {
         animate="visible"
         variants={containerVariants}
       >
-        {/* Go Back Button */}
-        <motion.div
-          className="flex justify-start sticky top-4 z-50"
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <GoBackButton setCurrentPage={setCurrentPage} />
-        </motion.div>
+      
 
         {/* Heading */}
         <motion.h1

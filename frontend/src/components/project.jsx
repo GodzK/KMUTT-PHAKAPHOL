@@ -9,7 +9,7 @@ function Project({ setCurrentPage }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [currentSemesterIndex, setCurrentSemesterIndex] = useState(0);
   const [filter, setFilter] = useState("all");
-  const [visibleItems, setVisibleItems] = useState(5);
+  const [visibleItems, setVisibleItems] = useState(100);
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const isProjectData = projectdata.length > 0;
