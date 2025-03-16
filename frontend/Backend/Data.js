@@ -44,7 +44,7 @@ export const projectdata = [
     picture: iot,
     experience:
       "I learned how to build an end-to-end full-stack application, integrate AI models into a web application, and optimize real-time data processing for IoT devices. ",
-    link: "https://p-koin.vercel.app/",
+    link: "https://github.com/IOT4NHOR/Frontend",
   },
   {
     projectname: "PK Shop",
@@ -54,7 +54,8 @@ export const projectdata = [
     picture: pkshop,
     experience:
       "I gained valuable experience in full-stack development, specifically in how frontend components communicate with backend APIs. Additionally, I learned how to use Axios for making API requests and managing state in React applications.",
-  },
+ link: "https://github.com/GodzK/PkShop",  
+    },
   {
     projectname: "PKCrypto",
     description:
@@ -120,31 +121,13 @@ export const ActivityData = [
   {
     Semester: "Semester 2",
     Activity1: [
-      {
-        activityTitle: "TuePunrak 18th (English Teacher)",
-        image: tpr,
-        description: "The Camp promotes unity and friendship among students.",
-      },
-      {
-        activityTitle: "TuePunrak 19th (English Teacher)",
-        image: tpr,
-        description: "The Camp promotes unity and friendship among students.",
-      },
+     
     ],
   },
   {
     Semester: "Semester 3",
     Activity1: [
-      {
-        activityTitle: "TuePunrak 18th (English Teacher)",
-        image: tpr,
-        description: "The Camp promotes unity and friendship among students.",
-      },
-      {
-        activityTitle: "TuePunrak 19th (English Teacher)",
-        image: tpr,
-        description: "The Camp promotes unity and friendship among students.",
-      },
+      
     ],
   },
 ];

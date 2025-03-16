@@ -19,6 +19,11 @@ function Project({ setCurrentPage }) {
   const itemRefs = useRef([]);
   const containerRef = useRef(null);
 
+  // กำหนดค่าเริ่มต้นให้ itemRefs เพื่อป้องกัน undefined
+  useEffect(() => {
+    itemRefs.current = [];
+  }, [items]);
+
   const openModal = (content) => {
     setModalContent(content);
     setIsModalOpen(true);
@@ -32,7 +37,7 @@ function Project({ setCurrentPage }) {
 
   const handleKeyDown = (event) => {
     if (isModalOpen) {
-      if (event.key === "Backspace") closeModal();
+      if (event.key === "Backspace" || event.key === "Escape") closeModal();
       if (event.key === "ArrowDown" && modalContent?.activitypic?.length > 0) {
         setCurrentSlide((prev) =>
           prev === modalContent.activitypic.length - 1 ? 0 : prev + 1
@@ -44,7 +49,9 @@ function Project({ setCurrentPage }) {
         );
       }
     } else {
-      if (event.key === "ArrowDown") {
+      if (event.key === "Escape") {
+        setCurrentPage("home");
+      } else if (event.key === "ArrowDown") {
         const newIndex = Math.min(selectedIndex + 1, filteredItems.length - 1);
         setSelectedIndex(newIndex);
         scrollToItem(newIndex);
@@ -73,32 +80,30 @@ function Project({ setCurrentPage }) {
 
   const scrollToItem = (index) => {
     if (itemRefs.current[index]) {
-      itemRefs.current[index].scrollIntoView({
+      const topPosition =
+        itemRefs.current[index].getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: topPosition - window.innerHeight / 2 + 100, // เลื่อนให้ item อยู่ใกล้กลางหน้าจอ
         behavior: "smooth",
-        block: "center",
       });
     }
   };
 
-  // เพิ่มการจัดการ Mouse Wheel
   const handleWheel = (event) => {
     if (isModalOpen) return;
 
     const delta = event.deltaY;
     if (delta > 0) {
-      // Scroll down
       const newIndex = Math.min(selectedIndex + 1, filteredItems.length - 1);
       setSelectedIndex(newIndex);
       scrollToItem(newIndex);
     } else if (delta < 0) {
-      // Scroll up
       const newIndex = Math.max(selectedIndex - 1, 0);
       setSelectedIndex(newIndex);
       scrollToItem(newIndex);
     }
   };
 
-  // Infinite Scroll
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
@@ -108,7 +113,6 @@ function Project({ setCurrentPage }) {
     }
   };
 
-  // Touch Gestures สำหรับ Mobile
   const [touchStartX, setTouchStartX] = useState(null);
   const [touchStartY, setTouchStartY] = useState(null);
   const handleTouchStart = (e) => {
@@ -142,12 +146,10 @@ function Project({ setCurrentPage }) {
       setTouchStartY(null);
     } else if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 50) {
       if (diffY > 0) {
-        // Swipe up (เลื่อนลง)
         const newIndex = Math.min(selectedIndex + 1, filteredItems.length - 1);
         setSelectedIndex(newIndex);
         scrollToItem(newIndex);
       } else if (diffY < 0) {
-        // Swipe down (เลื่อนขึ้น)
         const newIndex = Math.max(selectedIndex - 1, 0);
         setSelectedIndex(newIndex);
         scrollToItem(newIndex);
@@ -158,6 +160,9 @@ function Project({ setCurrentPage }) {
   };
 
   useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.focus();
+    }
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("scroll", handleScroll);
     const container = containerRef.current;
@@ -179,16 +184,63 @@ function Project({ setCurrentPage }) {
     visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
   };
 
+  const titleVariants = {
+    hidden: { opacity: 0, y: -100 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  };
+
   const itemVariants = {
     hidden: { opacity: 0, y: 100 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-    hover: { scale: 1.03, rotate: 1, transition: { duration: 0.3 } },
-    selected: { scale: 1.05, borderColor: "#ff6b6b", boxShadow: "0 0 20px rgba(255, 107, 107, 0.5)" },
+    hover: { 
+      scale: 1.03, 
+      boxShadow: "0px 0px 25px rgba(149, 128, 255, 0.4)",
+      transition: { duration: 0.3 } 
+    },
+    selected: { 
+      scale: 1.05, 
+      borderColor: "#9580ff", 
+      boxShadow: "0px 0px 30px rgba(149, 128, 255, 0.6)" 
+    },
   };
 
   const modalVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { 
+      opacity: 1, 
+      scale: 1, 
+      transition: { 
+        duration: 0.5, 
+        ease: [0.19, 1.0, 0.22, 1.0] 
+      } 
+    },
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.1,
+      boxShadow: "0px 0px 15px rgba(149, 128, 255, 0.6)",
+      transition: { duration: 0.3 }
+    },
+    tap: {
+      scale: 0.95
+    }
+  };
+
+  const glowVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 0.4, 
+      transition: { 
+        duration: 0.5, 
+        repeat: Infinity, 
+        repeatType: "reverse" 
+      } 
+    },
   };
 
   const filteredItems = items.filter((item) =>
@@ -198,48 +250,58 @@ function Project({ setCurrentPage }) {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-gray-900 via-indigo-950 to-black text-white p-4 sm:p-6 md:p-8 overflow-x-hidden"
+      tabIndex={0}
+      className="fixed inset-0 w-full h-full overflow-y-auto outline-none"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
-      style={{
-        fontFamily: "'Inter', sans-serif",
-        backgroundAttachment: "fixed",
-        backgroundSize: "cover",
-        scrollBehavior: "smooth",
-        touchAction: "pan-y",
-      }}
+      style={{ fontFamily: "'Orbitron', sans-serif" }}
     >
-   <motion.div
-  className="fixed top-4 left-4 z-50" // ใช้ fixed เพื่อให้ติดมุมขวาบนตลอด
-  initial={{ opacity: 0, x: 50 }} // เริ่มต้นจากนอกจอด้านขวา
-  animate={{ opacity: 1, x: 0 }} // เลื่อนเข้ามาด้วยความนุ่มนวล
-  transition={{ duration: 0.5, ease: "easeOut" }} // อนิเมชันลื่นไหล
-  whileHover={{ scale: 1.1 }} // ขยายเล็กน้อยเมื่อ hover
->
-  <GoBackButton setCurrentPage={setCurrentPage} />
-</motion.div>
+      <GoBackButton setCurrentPage={setCurrentPage} />
+      {/* Neon Grid Background */}
+      <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-indigo-950 to-black pointer-events-none"></div>
+
+    
+     
+
+      {/* Main Content */}
       <motion.div
-        className="w-full max-w-3xl mx-auto flex flex-col gap-12"
+        className="w-full max-w-5xl mx-auto flex flex-col gap-12 z-10 relative pt-8 pb-16 px-4 sm:px-6 md:px-8"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        
-
+        {/* Title */}
         <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-center bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 text-transparent bg-clip-text drop-shadow-lg sticky top-16 z-10"
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
+          className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 drop-shadow-[0_0_20px_rgba(255,255,255,0.5)] mt-6"
+          variants={titleVariants}
+          whileHover={{ scale: 1.05, textShadow: "0px 0px 30px rgba(255, 255, 255, 0.8)" }}
         >
           {isProjectData ? "Projects" : "Activities"}
-          <p className="text-sm sm:text-base text-gray-300 mt-2 pb-10">
-            Scroll, swipe, or press <kbd className="bg-gray-700 px-2 py-1 rounded">↑↓</kbd> to navigate
-          </p>
+          <motion.div
+            className="text-base sm:text-lg md:text-xl text-gray-400 mt-4 tracking-wider"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            {isProjectData ? "Explore my digital creations" : "Discover my involvement"}
+            <p className="text-sm sm:text-base text-gray-500 mt-2">
+              Use <kbd className="bg-gray-700 px-2 py-1 rounded">↑↓</kbd> to navigate
+            </p>
+          </motion.div>
         </motion.h1>
 
+        {/* Semester Navigation (for Activities) */}
         {!isProjectData && (
-          <div className="flex justify-center items-center gap-4">
-            <button
+          <motion.div
+            className="flex justify-center items-center gap-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+          >
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
               onClick={() => {
                 const newSemesterIndex =
                   (currentSemesterIndex - 1 + ActivityData.length) % ActivityData.length;
@@ -247,12 +309,13 @@ function Project({ setCurrentPage }) {
                 setSelectedIndex(0);
                 setFilter(ActivityData[newSemesterIndex].Semester);
               }}
-              className="p-3 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full shadow-lg hover:from-gray-600 hover:to-gray-800 transition-all duration-300"
+              className="p-3 bg-white/5 backdrop-blur-sm rounded-full shadow-lg border border-purple-500/30 hover:border-purple-500/70 transition-all duration-300"
             >
-              <span className="text-white text-xl">←</span>
-            </button>
-            <select
-              className="px-6 py-3 bg-gray-800 bg-opacity-80 backdrop-blur-md text-white rounded-lg shadow-lg border border-gray-600 hover:bg-gray-700 transition-all duration-300"
+              <span className="text-purple-300 text-xl">←</span>
+            </motion.button>
+
+            <motion.select
+              className="px-6 py-3 bg-white/5 backdrop-blur-md text-purple-300 rounded-full shadow-lg border border-purple-500/30 hover:border-purple-500/70 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500/50"
               value={filter}
               onChange={(e) => {
                 setFilter(e.target.value);
@@ -264,6 +327,7 @@ function Project({ setCurrentPage }) {
                   setSelectedIndex(0);
                 }
               }}
+              whileHover={{ scale: 1.05 }}
             >
               <option value="all">All Semesters</option>
               {ActivityData.map((semester, idx) => (
@@ -271,27 +335,32 @@ function Project({ setCurrentPage }) {
                   {semester.Semester}
                 </option>
               ))}
-            </select>
-            <button
+            </motion.select>
+
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
               onClick={() => {
                 const newSemesterIndex = (currentSemesterIndex + 1) % ActivityData.length;
                 setCurrentSemesterIndex(newSemesterIndex);
                 setSelectedIndex(0);
                 setFilter(ActivityData[newSemesterIndex].Semester);
               }}
-              className="p-3 bg-gradient-to-r from-gray-700 to-gray-900 rounded-full shadow-lg hover:from-gray-600 hover:to-gray-800 transition-all duration-300"
+              className="p-3 bg-white/5 backdrop-blur-sm rounded-full shadow-lg border border-purple-500/30 hover:border-purple-500/70 transition-all duration-300"
             >
-              <span className="text-white text-xl">→</span>
-            </button>
-          </div>
+              <span className="text-purple-300 text-xl">→</span>
+            </motion.button>
+          </motion.div>
         )}
 
+        {/* Items List */}
         <div className="flex flex-col gap-10 w-full mx-auto">
           {filteredItems.slice(0, visibleItems).map((item, idx) => (
             <motion.section
               key={idx}
-              className={`relative bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 backdrop-blur-lg border border-gray-700 rounded-3xl p-8 shadow-xl cursor-pointer transition-all duration-500 hover:shadow-2xl hover:border-pink-500/50 ${
-                selectedIndex === idx ? "border-pink-500 shadow-pink-500/50" : ""
+              className={`relative bg-white/5 backdrop-blur-md border border-purple-500/30 rounded-3xl p-8 shadow-xl cursor-pointer transition-all duration-500 ${
+                selectedIndex === idx ? "border-purple-500 shadow-purple-500/50" : ""
               }`}
               variants={itemVariants}
               whileHover="hover"
@@ -316,8 +385,11 @@ function Project({ setCurrentPage }) {
               <p className="mt-6 text-gray-300 text-lg leading-relaxed">
                 {isProjectData ? item.description : ""}
               </p>
-              <button
-                className="mt-6 px-8 py-3 bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-semibold rounded-full shadow-lg hover:from-cyan-600 hover:to-purple-600 transition-all duration-300"
+              <motion.button
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="mt-6 px-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-full shadow-lg"
                 onClick={() => openModal(item)}
               >
                 {isProjectData
@@ -325,49 +397,52 @@ function Project({ setCurrentPage }) {
                     ? "Visit Project"
                     : "Learn More"
                   : "Watch More"}
-              </button>
+              </motion.button>
             </motion.section>
           ))}
         </div>
       </motion.div>
 
+      {/* Modal */}
       {isModalOpen && (
         <motion.div
-          className="fixed inset-0 bg-black bg-opacity-85 flex items-start justify-center z-50 p-4 overflow-y-auto"
+          className="fixed inset-0 bg-black/90 flex items-start justify-center z-50 p-4 overflow-y-auto"
           initial="hidden"
           animate="visible"
           variants={modalVariants}
           onClick={closeModal}
         >
           <motion.div
-            className="relative bg-gradient-to-b from-white to-gray-100 bg-opacity-95 backdrop-blur-xl rounded-3xl p-10 max-w-2xl w-full mx-auto text-left my-10 shadow-2xl"
+            className="relative bg-white/10 backdrop-blur-xl rounded-3xl p-10 max-w-2xl w-full mx-auto text-left my-10 shadow-2xl border border-purple-500/30"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
+            <motion.button
               className="absolute top-4 right-4 p-2 bg-red-600 text-white rounded-full hover:bg-red-700 transition-all duration-300"
               onClick={closeModal}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
             >
               ✕
-            </button>
+            </motion.button>
 
-            <p className="text-4xl font-bold text-gray-900 mb-8 drop-shadow-md">
+            <p className="text-4xl font-bold text-white mb-8 drop-shadow-md">
               {modalContent?.projectname || modalContent?.activityTitle}
             </p>
 
-            <div className="text-lg text-gray-700 leading-relaxed mb-10">
+            <div className="text-lg text-gray-300 leading-relaxed mb-10">
               {modalContent?.experience || modalContent?.description}
             </div>
 
             {modalContent?.techStack && (
               <div className="mb-10">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4 drop-shadow-sm">
+                <h3 className="text-2xl font-semibold text-white mb-4 drop-shadow-sm">
                   Tech Stack
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {modalContent.techStack.map((tech, idx) => (
                     <motion.span
                       key={idx}
-                      className="px-4 py-2 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full text-sm text-gray-800 shadow-md"
+                      className="px-4 py-2 bg-purple-500/20 rounded-full text-sm text-purple-300 shadow-md"
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: idx * 0.1 }}
@@ -380,7 +455,7 @@ function Project({ setCurrentPage }) {
             )}
 
             <div className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-4 drop-shadow-sm">
+              <h3 className="text-2xl font-semibold text-white mb-4 drop-shadow-sm">
                 Images
               </h3>
               {modalContent?.activitypic?.length > 0 ? (
@@ -405,26 +480,28 @@ function Project({ setCurrentPage }) {
                   </div>
                   {modalContent.activitypic.length > 1 && (
                     <>
-                      <button
-                        className="absolute top-4 left-1/2 transform -translate-x-1/2 p-3 bg-gray-800 bg-opacity-50 rounded-full hover:bg-opacity-75 transition-all duration-300"
+                      <motion.button
+                        className="absolute top-4 left-1/2 transform -translate-x-1/2 p-3 bg-purple-500/50 rounded-full hover:bg-purple-500/75 transition-all duration-300"
                         onClick={() =>
                           setCurrentSlide((prev) =>
                             prev === 0 ? modalContent.activitypic.length - 1 : prev - 1
                           )
                         }
+                        whileHover={{ scale: 1.1 }}
                       >
                         <span className="text-white text-xl">↑</span>
-                      </button>
-                      <button
-                        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-3 bg-gray-800 bg-opacity-50 rounded-full hover:bg-opacity-75 transition-all duration-300"
+                      </motion.button>
+                      <motion.button
+                        className="absolute bottom-4 left-1/2 transform -translate-x-1/2 p-3 bg-purple-500/50 rounded-full hover:bg-purple-500/75 transition-all duration-300"
                         onClick={() =>
                           setCurrentSlide((prev) =>
                             prev === modalContent.activitypic.length - 1 ? 0 : prev + 1
                           )
                         }
+                        whileHover={{ scale: 1.1 }}
                       >
                         <span className="text-white text-xl">↓</span>
-                      </button>
+                      </motion.button>
                     </>
                   )}
                 </div>
@@ -439,17 +516,19 @@ function Project({ setCurrentPage }) {
 
             {modalContent?.link && (
               <div className="mb-10">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-4 drop-shadow-sm">
+                <h3 className="text-2xl font-semibold text-white mb-4 drop-shadow-sm">
                   Link
                 </h3>
-                <a
+                <motion.a
                   href={modalContent.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg shadow-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
+                  className="inline-block px-8 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-full shadow-lg"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   Visit Link
-                </a>
+                </motion.a>
               </div>
             )}
           </motion.div>
