@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Jersey+10&family=Micro+5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,11 +7,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Micro 5", serif;
     
 }
 html, body {
-    
+  font-family: 'Space Grotesk', sans-serif;
     scroll-behavior: smooth;
     height: 100%;
   }
