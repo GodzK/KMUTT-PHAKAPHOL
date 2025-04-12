@@ -1,197 +1,295 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
-import Background from "./assets/bg.mp4";
 import profile from "./assets/profile.jpg";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/opacity.css";
 import { projectdata, ActivityData } from "../Backend/Data";
 
 function App() {
-  const { scrollY } = useScroll();
-  const parallaxY = useTransform(scrollY, [0, 1000], [0, -200]);
-  const opacityHero = useTransform(scrollY, [0, 200], [1, 0]);
+  const { scrollY, scrollYProgress } = useScroll();
+  const scrollSpring = useSpring(scrollY, { stiffness: 150, damping: 30 });
+  const parallaxY = useTransform(scrollSpring, [0, 1000], [0, -600]);
+  const parallaxY2 = useTransform(scrollSpring, [0, 1000], [0, -300]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [theme, setTheme] = useState("dark");
+  const [contrast, setContrast] = useState(false);
+  const [filter, setFilter] = useState("all");
+  const popupRef = useRef(null);
 
   useEffect(() => {
-    // Custom Cursor (Optimized for performance)
+    document.documentElement.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-contrast", contrast ? "high" : "normal");
+  }, [theme, contrast]);
+
+  useEffect(() => {
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
+    const cursorInner = document.createElement("div");
+    cursorInner.className = "custom-cursor-inner";
+    cursor.appendChild(cursorInner);
     document.body.appendChild(cursor);
-
-    const moveCursor = (e) => {
-      cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+    const updateCursor = (e) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
     };
-
-    document.addEventListener("mousemove", moveCursor);
-
+    document.addEventListener("mousemove", updateCursor);
+    const handleHover = () => cursor.classList.add("hover");
+    const handleLeave = () => cursor.classList.remove("hover");
+    document.querySelectorAll("a, button, [data-tilt]").forEach((el) => {
+      el.addEventListener("mouseenter", handleHover);
+      el.addEventListener("mouseleave", handleLeave);
+    });
     return () => {
-      document.removeEventListener("mousemove", moveCursor);
+      document.removeEventListener("mousemove", updateCursor);
       document.body.removeChild(cursor);
     };
   }, []);
 
+  useEffect(() => {
+    if (selectedProject && popupRef.current) {
+      popupRef.current.focus();
+    }
+  }, [selectedProject]);
+
+  const uniqueCategories = [...new Set(projectdata.map((p) => p.category || "Other"))];
+
   return (
     <div className="app">
-      <motion.video
-        className="background-video"
-        src={Background}
-        autoPlay
-        loop
-        muted
-        playsInline
-        style={{ y: parallaxY }}
-        aria-hidden="true"
+      {/* Background Layers */}
+      <motion.div
+        className="background-layer"
+        style={{ y: parallaxY2 }}
       />
       <div className="overlay" />
+      <div className="particles" />
+
+      {/* Scroll Progress */}
+      <motion.div
+        className="scroll-progress"
+        style={{ scaleX: scrollYProgress }}
+      />
+
+      {/* Toggles */}
+      <div className="toggles">
+        <motion.button
+          className="theme-toggle"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          whileHover={{ scale: 1.3 }}
+          whileTap={{ scale: 0.8 }}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+        >
+          {theme === "dark" ? "☀️" : "🌙"}
+        </motion.button>
+        <motion.button
+          className="contrast-toggle"
+          onClick={() => setContrast(!contrast)}
+          whileHover={{ scale: 1.3 }}
+          whileTap={{ scale: 0.8 }}
+          aria-label={`Toggle ${contrast ? "normal" : "high"} contrast`}
+        >
+          👁️
+        </motion.button>
+      </div>
 
       {/* Hero Section */}
       <motion.section className="hero" style={{ opacity: opacityHero }}>
         <motion.div
           className="hero-content"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          initial={{ scale: 0.5 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 2.5, ease: "easeOut" }}
         >
           <motion.h1
             className="hero-title"
-            initial={{ y: -50, opacity: 0 }}
+            initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            transition={{ duration: 1.5, delay: 0.5, type: "spring", stiffness: 100 }}
           >
             Phakaphol D.
           </motion.h1>
           <motion.div
             className="hero-subtitle-wrapper"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: "auto", opacity: 1 }}
+            transition={{ duration: 1.2, delay: 1.8 }}
           >
             <span className="hero-subtitle">
-              FrontEnd Developer & UX/UI Designer
+              FRONTEND DEVELOPER  UX/UI Designer
             </span>
           </motion.div>
         </motion.div>
       </motion.section>
 
       {/* About Section */}
-      <Section title="Visionary Coder">
+      <Section title="Visionary Architect">
         <motion.div className="about-content">
-          <motion.img
-            src={profile}
-            alt="Phakaphol's profile"
-            className="about-image"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            loading="lazy"
-          />
+          <motion.div
+            initial={{ x: -300, opacity: 0 }}
+            whileInView={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.2, type: "spring", stiffness: 80 }}
+            className="about-image-wrapper"
+            data-tilt
+          >
+            <LazyLoadImage
+              src={profile}
+              alt="Phakaphol"
+              className="about-image"
+              effect="opacity"
+            />
+          </motion.div>
           <motion.div
             className="about-text"
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 300 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 1, delay: 0.3 }}
           >
             <p>
-              A 20-year-old Frontend Developer at KMUTT | Year 1. I’m obsessed
-              with crafting pixel-perfect UIs using React, animations that pop,
-              and responsive designs that shine on any device. Fluent in HTML,
-              CSS, and JavaScript, I focus on performance and seamless UX.
+              I am a 20-year-old Frontend Architect at KMUTT, Year 1, driven by an unrelenting passion for crafting digital experiences that redefine excellence. With mastery over React, CSS Grid, and performance optimization, I transform ideas into seamless, captivating interfaces. My work blends precision, innovation, and artistry—fluent in HTML, CSS, JavaScript, and the pursuit of perfection.
             </p>
             <motion.button
               className="cta-button"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300 }}
               aria-label="Contact Phakaphol"
             >
-              Let’s Talk
+              Forge the Future
             </motion.button>
           </motion.div>
         </motion.div>
       </Section>
 
-      {/* Skills Section */}
-      <Section title="Tech Mastery">
-        <motion.div className="skills-container">
+      {/* Tech Arsenal Section */}
+      <Section title="Tech Arsenal">
+        <motion.div
+          className="arsenal-container"
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.15 } },
+          }}
+          initial="hidden"
+          whileInView="show"
+        >
           {[
             { name: "React", color: "#61DAFB" },
-            { name: "Python", color: "#3776AB" },
             { name: "Next.js", color: "#000000" },
-            { name: "CSS", color: "#1572B6" },
             { name: "TypeScript", color: "#3178C6" },
             { name: "Node.js", color: "#68A063" },
-          ].map((skill, index) => (
+            { name: "CSS", color: "#1572B6" },
+            { name: "YOLO AI", color: "#FF5E62" },
+            { name: "Express.js", color: "#000000" },
+            { name: "MongoDB", color: "#47A248" },
+            { name: "Axios", color: "#5A29E4" },
+          ].map((tech) => (
             <motion.div
-              key={skill.name}
-              className="skill-orb"
-              style={{ backgroundColor: skill.color }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.1 }}
-              role="listitem"
-              aria-label={`Skill: ${skill.name}`}
+              key={tech.name}
+              className="arsenal-poly"
+              style={{ "--tech-color": tech.color }}
+              variants={{
+                hidden: { scale: 0, opacity: 0 },
+                show: { scale: 1, opacity: 1 },
+              }}
+              whileHover={{ scale: 1.3 }}
+              transition={{ duration: 0.8 }}
+              data-tilt
             >
-              {skill.name}
+              <span>{tech.name}</span>
             </motion.div>
           ))}
         </motion.div>
       </Section>
 
       {/* Projects Section */}
-      <Section title="Creations">
-        <motion.div className="projects-container">
-          {projectdata.map((project, index) => (
-            <motion.div
-              key={index}
-              className="project-card"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.03 }}
+      <Section title="Master Creations">
+        <div className="filter-container">
+          {["all", ...uniqueCategories].map((cat) => (
+            <motion.button
+              key={cat}
+              className={`filter-button ${filter === cat ? "active" : ""}`}
+              onClick={() => setFilter(cat)}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              <img
-                src={project.picture}
-                alt={`${project.projectname} preview`}
-                className="project-image"
-                loading="lazy"
-              />
-              <h3>{project.projectname}</h3>
-              <p>{project.description.substring(0, 80)}...</p>
-              <motion.button
-                className="see-more-button"
-                onClick={() => setSelectedProject(project)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={`View details for ${project.projectname}`}
-              >
-                See More
-              </motion.button>
-            </motion.div>
+              {cat}
+            </motion.button>
           ))}
+        </div>
+        <motion.div
+          className="projects-container"
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.2 } },
+          }}
+          initial="hidden"
+          whileInView="show"
+        >
+          {projectdata
+            .filter((project) => filter === "all" || (project.category || "Other") === filter)
+            .map((project, index) => (
+              <motion.div
+                key={index}
+                className="project-card"
+                variants={{
+                  hidden: { y: 100, opacity: 0 },
+                  show: { y: 0, opacity: 1 },
+                }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.8 }}
+                data-tilt
+              >
+                <LazyLoadImage
+                  src={project.picture}
+                  alt={project.projectname}
+                  className="project-image"
+                  effect="opacity"
+                />
+                <h3>{project.projectname}</h3>
+                <p>{project.description.substring(0, 100)}...</p>
+                <div className="tech-stack">
+                  {project.techStack.map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
+                  ))}
+                </div>
+                <motion.button
+                  className="see-more-button"
+                  onClick={() => setSelectedProject(project)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  aria-label={`View details for ${project.projectname}`}
+                >
+                  Discover
+                </motion.button>
+              </motion.div>
+            ))}
         </motion.div>
 
-        {/* Project Pop-up */}
         {selectedProject && (
           <motion.div
             className="project-popup"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            role="dialog"
-            aria-labelledby="popup-title"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.7 }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 120 }}
           >
-            <div className="popup-content">
-              <h3 id="popup-title">{selectedProject.projectname}</h3>
-              <img
+            <div className="popup-content" tabIndex={-1} ref={popupRef}>
+              <h3>{selectedProject.projectname}</h3>
+              <LazyLoadImage
                 src={selectedProject.picture}
-                alt={`${selectedProject.projectname} preview`}
+                alt={selectedProject.projectname}
                 className="popup-image"
-                loading="lazy"
+                effect="opacity"
               />
               <p>{selectedProject.description}</p>
+              <div className="tech-stack">
+                {selectedProject.techStack.map((tech, i) => (
+                  <span key={i} className="tech-tag">{tech}</span>
+                ))}
+              </div>
+              <p><strong>Experience:</strong> {selectedProject.experience}</p>
               <a
                 href={selectedProject.link}
                 target="_blank"
@@ -199,12 +297,13 @@ function App() {
                 className="project-link"
                 aria-label={`Visit ${selectedProject.projectname} project`}
               >
-                Visit Project
+                Visit Creation
               </a>
               <motion.button
                 className="close-button"
                 onClick={() => setSelectedProject(null)}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.2 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="Close project details"
               >
                 ✕
@@ -215,29 +314,36 @@ function App() {
       </Section>
 
       {/* Experience Section */}
-      <Section title="Milestones">
+      <Section title="Epic Journey">
         <motion.div className="experience-container">
           {[
             {
               title: "QA Specialist",
               company: "SCB TechX",
               period: "Apr 2025 - Present",
-              desc: "Mastered Cypress automation",
+              desc: "Orchestrated Cypress automation to ensure flawless testing pipelines.",
             },
             {
-              title: "Frontend Dev",
+              title: "Frontend Developer",
               company: "SIT DEV TEAM",
-              period: "Feb 2025 - March 2025",
-              desc: "Crafted Next.js brilliance",
+              period: "Feb 2025 - Mar 2025",
+              desc: "Crafted Next.js interfaces with unparalleled precision and performance.",
+            },
+            {
+              title: "Hackathon Lead",
+              company: "KMUTT IoT Club",
+              period: "Oct 2024",
+              desc: "Led a team to triumph in IoT Hackathon with YOLO AI integration.",
             },
           ].map((exp, index) => (
             <motion.div
               key={index}
               className="experience-card"
-              initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              whileHover={{ scale: 1.02 }}
+              initial={{ x: index % 2 === 0 ? -300 : 300, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1, delay: index * 0.3 }}
+              whileHover={{ scale: 1.05 }}
+              data-tilt
             >
               <h3>{exp.title}</h3>
               <p className="company">{exp.company}</p>
@@ -249,54 +355,76 @@ function App() {
       </Section>
 
       {/* Activities Section */}
-      <Section title="Adventures">
-        <motion.div className="activities-container">
+      <Section title="Legendary Ventures">
+        <motion.div
+          className="activities-container"
+          variants={{
+            hidden: { opacity: 0 },
+            show: { opacity: 1, transition: { staggerChildren: 0.2 } },
+          }}
+          initial="hidden"
+          whileInView="show"
+        >
           {ActivityData.flatMap((sem) => sem.Activity1).map((activity, index) => (
             <motion.div
               key={index}
               className="activity-card"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ scale: 1.03 }}
+              variants={{
+                hidden: { scale: 0, opacity: 0 },
+                show: { scale: 1, opacity: 1 },
+              }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.7 }}
+              data-tilt
             >
-              <img
+              <LazyLoadImage
                 src={activity.image}
-                alt={`${activity.activityTitle} image`}
+                alt={activity.activityTitle}
                 className="activity-image"
-                loading="lazy"
+                effect="opacity"
               />
               <h3>{activity.activityTitle}</h3>
               <p>{activity.description}</p>
+              <div className="activity-gallery">
+                {activity.activitypic?.map((pic, i) => (
+                  <LazyLoadImage
+                    key={i}
+                    src={pic}
+                    alt={`${activity.activityTitle} ${i + 1}`}
+                    className="gallery-image"
+                    effect="opacity"
+                  />
+                ))}
+              </div>
             </motion.div>
           ))}
         </motion.div>
       </Section>
 
       {/* Contact Section */}
-      <Section title="Get In Touch">
+      <Section title="Unite for Greatness">
         <motion.div className="contact-container">
           <motion.p
             className="contact-text"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
           >
-            Unleash the Future with Me
+            Join me in shaping the digital frontier.
           </motion.p>
           <motion.a
             href="mailto:godzk25@gmail.com"
             className="contact-email"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1 }}
             aria-label="Email Phakaphol"
           >
             godzk25@gmail.com
           </motion.a>
           <motion.div
             className="social-cards"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
+            initial={{ y: 100 }}
+            whileInView={{ y: 0 }}
+            transition={{ duration: 0.8 }}
           >
             {[
               {
@@ -334,8 +462,11 @@ function App() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`social-card bg-gradient-to-r ${social.gradient}`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                whileHover={{ scale: 1.15 }}
+                transition={{ duration: 0.6 }}
+                data-tilt
                 aria-label={`Visit ${social.name} profile`}
               >
                 <span className="social-text">{social.text}</span>
@@ -348,30 +479,35 @@ function App() {
   );
 }
 
-function Section({ title, children }) {
+const Section = React.memo(({ title, children }) => {
   const [ref, inView] = useInView({ threshold: 0.1 });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
 
   return (
     <motion.section
       ref={ref}
-      className="section"
+      className="section snap-section"
+      style={{ y }}
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.6 }}
-      aria-labelledby={`section-${title.toLowerCase().replace(/\s/g, "-")}`}
+      transition={{ duration: 1.2 }}
     >
       <motion.h2
         className="section-title"
-        id={`section-${title.toLowerCase().replace(/\s/g, "-")}`}
-        initial={{ opacity: 0, y: 20 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.6 }}
+        initial={{ scale: 0 }}
+        animate={inView ? { scale: 1 } : { scale: 0 }}
+        transition={{ duration: 1, type: "spring", stiffness: 120 }}
       >
         {title}
       </motion.h2>
       {children}
     </motion.section>
   );
-}
+  
+});Section.displayName = "Section";
 
 export default App;
