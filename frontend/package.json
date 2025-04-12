@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-spring/web": "^9.7.5",
     "@studio-freight/lenis": "^1.0.42",
+    "@tabler/icons-react": "^3.31.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "aos": "^2.3.4",
