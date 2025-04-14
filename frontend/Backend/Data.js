@@ -19,6 +19,7 @@ import iot5 from "../../frontend/src/IOT/iot5.jpg";
 import it3k from "../../frontend/src/assets/IT3K/3klogo.png";
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
+import moodbase from "../../frontend/src/assets/moodbase.png"
 
 export const projectdata = [
   {
@@ -55,6 +56,16 @@ export const projectdata = [
     picture: pkshop,
     experience:
       "This project deepened my understanding of full-stack development, especially in handling REST APIs, managing state in React, and structuring a MongoDB database for real-world e-commerce scenarios.",
+    link: "https://github.com/GodzK/PkShop",
+  },
+  {
+    projectname: "(Mood base) Coffee Shop",
+    description:
+      "This project is a media recommendation system designed to help people who are emotionally struggling—whether due to depression, grief, burnout, or feeling disconnected from the world—find media content that offers true empathy and emotional healing.",
+    techStack: ["React", "Express.js", "Node.js", "MongoDB"],
+    picture: moodbase,
+    experience:
+      "It categorizes content (movies, series, books, podcasts, and poetry) by detailed mood profiles, such as: Low energy or mental fatigue Feelings of worthlessness or numbnessA desire for comfort or deeper understanding",
     link: "https://github.com/GodzK/PkShop",
   },
   {

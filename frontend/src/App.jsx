@@ -81,7 +81,7 @@ function App() {
           transition={{ duration: 1 }}
         >
           <motion.h1 className="hero-title">
-            {"PhakapholDherachaisuphakij".split("").map((char, i) => (
+            {"Phakaphol.com".split("").map((char, i) => (
               <motion.span
                 key={i}
                 initial={{ opacity: 0 }}
@@ -250,7 +250,7 @@ function App() {
 
       {/* Experience Section */}
       <section ref={sectionRefs.experience} className="section timeline"
-      >
+      style={{display:"flex",flexDirection:"column"}}>
         <motion.h2
           className="section-title"
           initial={{ opacity: 0 }}
