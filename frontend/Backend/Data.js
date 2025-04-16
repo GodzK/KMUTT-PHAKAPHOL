@@ -139,3 +139,11 @@ export const ActivityData = [
     Activity1: [],
   },
 ];
+
+export const socialLinks = [
+  { id: "github", name: "Github", link: "https://github.com/GodzK", text: "Github" },
+  { id: "ig", name: "Instagram", link: "https://www.instagram.com/pk._tcsk/", text: "Instagram" },
+  { id: "Borntodev", name: "Borntodev", link: "https://www.borntodev.com/author/godzk25gmail-com/", text: "Borntodev" },
+  { id: "Facebook", name: "Facebook", link: "https://www.facebook.com/phakaphol.dherachaisuphakij/", text: "Facebook" },
+]
+ 
