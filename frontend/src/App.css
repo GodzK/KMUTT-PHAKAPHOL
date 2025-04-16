@@ -405,3 +405,36 @@ h1 {
     max-width: 400px;
   }
 }
+/* Cursor Styles */
+.cursor {
+  z-index: 1000;
+  background-color: var(--color-accent); /* Use your accent color (#ff2c2c) */
+  opacity: 0;
+  pointer-events: none;
+  color: #fff; /* White text for contrast */
+  border-radius: 0.25em;
+  padding: 0.3em 0.75em 0.4em;
+  font-size: 1.15em;
+  line-height: 1.5;
+  font-family: var(--font-primary); /* Use Inter font */
+  transition: opacity 0.2s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(0, 0); /* Initial position */
+}
+
+.cursor p {
+  margin: 0;
+}
+
+/* Show cursor when hovering over elements with data-cursor */
+body:has([data-cursor]:hover) .cursor {
+  opacity: 1;
+}
+
+/* Adjust cursor for inverted theme */
+.inverted .cursor {
+  background-color: #ff0808; /* White background for inverted theme */
+  color: var(--color-primary); /* Black text */
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
-import { gsap } from "https://cdn.skypack.dev/gsap@3.11.0";
-import { ScrollTrigger } from "https://cdn.skypack.dev/gsap@3.11.0/ScrollTrigger";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projectdata, ActivityData } from "../Backend/Data";
 import white from "./assets/white.png";
 import black from "./assets/black.png";
@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const App = () => {
   const filterRef = useRef(null);
   const sectionsRef = useRef([]);
+  const cursorRef = useRef(null); // Ref for cursor element
   const [currentImages, setCurrentImages] = useState({});
   const [isInverted, setIsInverted] = useState(false);
 
@@ -23,6 +24,107 @@ const App = () => {
     filter.style.transform = `rotate(${newRotation}deg)`;
     setIsInverted(!isInverted);
   };
+
+  // Cursor logic
+  useEffect(() => {
+    const cursorItem = cursorRef.current;
+    const cursorParagraph = cursorItem.querySelector("p");
+    const targets = document.querySelectorAll("[data-cursor]");
+    let xOffset = 6;
+    let yOffset = 50;
+    let cursorIsOnRight = false;
+    let currentTarget = null;
+    let lastText = "";
+
+    // Position cursor relative to actual cursor position
+    gsap.set(cursorItem, { xPercent: xOffset, yPercent: yOffset });
+
+    // GSAP quickTo for smooth cursor movement
+    const xTo = gsap.quickTo(cursorItem, "x", { ease: "power3" });
+    const yTo = gsap.quickTo(cursorItem, "y", { ease: "power3" });
+
+    // Mousemove handler
+    const handleMouseMove = (e) => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const scrollY = window.scrollY;
+      const cursorX = e.clientX;
+      const cursorY = e.clientY + scrollY;
+
+      let xPercent = xOffset;
+      let yPercent = yOffset;
+
+      // Adjust X offset for right side
+      if (cursorX > windowWidth * 0.66) {
+        cursorIsOnRight = true;
+        xPercent = -100;
+      } else {
+        cursorIsOnRight = false;
+      }
+
+      // Adjust Y offset for bottom
+      if (cursorY > scrollY + windowHeight * 0.9) {
+        yPercent = -120;
+      }
+
+      if (currentTarget) {
+        let newText = currentTarget.getAttribute("data-cursor");
+        if (
+          currentTarget.hasAttribute("data-easteregg") &&
+          cursorIsOnRight
+        ) {
+          newText = currentTarget.getAttribute("data-easteregg");
+        }
+
+        if (newText !== lastText) {
+          cursorParagraph.innerHTML = newText;
+          lastText = newText;
+        }
+      }
+
+      gsap.to(cursorItem, {
+        xPercent: xPercent,
+        yPercent: yPercent,
+        duration: 0.9,
+        ease: "power3",
+      });
+      xTo(cursorX);
+      yTo(cursorY - scrollY);
+    };
+
+    // Mouseenter handler for targets
+    targets.forEach((target) => {
+      target.addEventListener("mouseenter", () => {
+        currentTarget = target;
+        let newText = target.hasAttribute("data-easteregg")
+          ? target.getAttribute("data-easteregg")
+          : target.getAttribute("data-cursor");
+
+        if (newText !== lastText) {
+          cursorParagraph.innerHTML = newText;
+          lastText = newText;
+        }
+      });
+
+      target.addEventListener("mouseleave", () => {
+        currentTarget = null;
+        cursorParagraph.innerHTML = "Learn more";
+        lastText = "Learn more";
+      });
+    });
+
+    // Add mousemove listener
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      targets.forEach((target) => {
+        target.removeEventListener("mouseenter", () => {});
+        target.removeEventListener("mouseleave", () => {});
+      });
+    };
+  }, []);
 
   // GSAP animations for sections
   useEffect(() => {
@@ -64,7 +166,7 @@ const App = () => {
     });
   }, []);
 
-  // Image slideshow for activity cards on hover
+  // Image slideshow for activity cards
   const startSlideshow = (activityId, images) => {
     if (images.length <= 1) return;
 
@@ -78,7 +180,7 @@ const App = () => {
           [activityId]: { src: images[currentIndex], index: currentIndex },
         };
       });
-    }, 1000); // Change image every 1 second
+    }, 1000);
 
     return () => clearInterval(interval);
   };
@@ -89,15 +191,20 @@ const App = () => {
 
   return (
     <div className="app">
+      {/* Cursor Element */}
+      <div className="cursor" ref={cursorRef}>
+        <p>Learn more</p>
+      </div>
+
       <h1>Phakaphol</h1>
       <div className="container">
         <div className="image-wrapper">
-        <img id="black" src={black} alt="Mask" className="mask-image" />
-        <img id="white" src={white} alt="Mask" className="mask-image" />
+          <img id="black" src={black} alt="Mask" className="mask-image" />
+          <img id="white" src={white} alt="Mask" className="mask-image" />
         </div>
       </div>
-      <div className="toggle-container" style={{ position: "relative" }}>
-        <div className="toggle-switch">
+      <div className="toggle-container" style={{ position: "relative" }}  data-cursor="try toggle!">
+        <div className="toggle-switch" >
           <input
             type="checkbox"
             id="toggle"
@@ -110,18 +217,18 @@ const App = () => {
       </div>
       <div className="filter" ref={filterRef}></div>
 
-      <div className="content">
+      <div className="content"  >
         {/* Who is Me Section */}
         <section
           className="section"
-          ref={(el) => (sectionsRef.current[0] = el)}
+          ref={(el) => (sectionsRef.current[0] = el)} data-cursor="Know Me more 😊"
         >
           <div className="section-inner">
             <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
               Who is Me
             </h2>
             <div className="section-content">
-              <div className={`text-container ${isInverted ? "inverted" : ""}`}>
+              <div className={`text-container ${isInverted ? "inverted" : ""}`} >
                 <p style={{ width: "30%" }} id="content-para">
                   My name is Phakaphol Dherachaisuphakij, a 20-year-old Frontend
                   Developer and Creative Technologist from KMUTT, passionate
@@ -139,24 +246,32 @@ const App = () => {
                       name: "Github",
                       link: "https://github.com/GodzK",
                       text: "Github",
+                      cursorText: "Visit my GitHub",
+                      easterEgg: "Code with me!",
                     },
                     {
                       id: "ig",
                       name: "Instagram",
                       link: "https://www.instagram.com/pk._tcsk/",
                       text: "Instagram",
+                      cursorText: "Follow me on IG",
+                      easterEgg: "See my posts!",
                     },
                     {
                       id: "Borntodev",
                       name: "Borntodev",
                       link: "https://www.borntodev.com/author/godzk25gmail-com/",
                       text: "Borntodev",
+                      cursorText: "Explore Borntodev",
+                      easterEgg: "Learn coding!",
                     },
                     {
                       id: "Facebook",
                       name: "Facebook",
                       link: "https://www.facebook.com/phakaphol.dherachaisuphakij/",
                       text: "Facebook",
+                      cursorText: "Connect on FB",
+                      easterEgg: "Friend me!",
                     },
                   ].map((social) => (
                     <a
@@ -164,6 +279,8 @@ const App = () => {
                       href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-cursor={social.cursorText}
+                      data-easteregg={social.easterEgg}
                     >
                       {social.text}
                     </a>
@@ -178,9 +295,10 @@ const App = () => {
         <section
           className="section"
           ref={(el) => (sectionsRef.current[1] = el)}
+           data-cursor="What experience i have ??"
         >
           <div className="section-inner">
-          <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
+            <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
               Experience
             </h2>
             <div className="section-content experience-grid">
@@ -205,10 +323,12 @@ const App = () => {
                 },
               ].map((exp, index) => (
                 <div key={index} className="experience-card">
-                  <div className={`text-container `}>
-                    <h3 style={{color:"white"}}>{exp.title}</h3>
-                    <p style={{color:"white"}}> {exp.company} | {exp.period}</p>
-                    <p style={{color:"gray"}}>{exp.desc}</p>
+                  <div className={`text-container`}>
+                    <h3 style={{ color: "white" }}>{exp.title}</h3>
+                    <p style={{ color: "white" }}>
+                      {exp.company} | {exp.period}
+                    </p>
+                    <p style={{ color: "gray" }}>{exp.desc}</p>
                   </div>
                 </div>
               ))}
@@ -220,9 +340,10 @@ const App = () => {
         <section
           className="section"
           ref={(el) => (sectionsRef.current[2] = el)}
+           data-cursor="This is some cool project that i have "
         >
           <div className="section-inner">
-            <h2 className={`section-title `} style={{color:"white"}}>
+            <h2 className={`section-title`} style={{ color: "white" }}>
               Projects
             </h2>
             <div className="section-content project-grid">
@@ -233,15 +354,20 @@ const App = () => {
                     alt={project.projectname}
                     className="project-image"
                   />
-                  <div className={`project-details `}>
-                    <h3 style={{color:"white"}}>{project.projectname}</h3>
-                    <p style={{color:"gray"}}>{project.description}</p>
-                    <p style={{color:"gray"}}><strong>Tech Stack:</strong> {project.techStack.join(", ")}</p>
-                    <p style={{color:"gray"}}>{project.experience}</p>
+                  <div className={`project-details`}>
+                    <h3 style={{ color: "white" }}>{project.projectname}</h3>
+                    <p style={{ color: "gray" }}>{project.description}</p>
+                    <p style={{ color: "gray" }}>
+                      <strong>Tech Stack:</strong>{" "}
+                      {project.techStack.join(", ")}
+                    </p>
+                    <p style={{ color: "gray" }}>{project.experience}</p>
                     <a
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-cursor="View this project"
+                      data-easteregg="Dive in!"
                     >
                       View Project
                     </a>
@@ -258,13 +384,16 @@ const App = () => {
           ref={(el) => (sectionsRef.current[3] = el)}
         >
           <div className="section-inner">
-            <h2 className={`section-title `} style={{color:"white"}}>
+            <h2 className={`section-title`} style={{ color: "white" }}>
               Activities
             </h2>
             <div className="section-content activity-grid">
               {ActivityData.map((semester, index) => (
                 <div key={index} className="semester-item">
-                  <h3 className={`text-container ${isInverted ? "inverted" : ""}`} style={{color:"white"}}>
+                  <h3
+                    className={`text-container`}
+                    style={{ color: "white" }}
+                  >
                     {semester.Semester}
                   </h3>
                   {semester.Activity1.map((activity, idx) => (
@@ -275,6 +404,8 @@ const App = () => {
                         startSlideshow(`${index}-${idx}`, activity.activitypic)
                       }
                       onMouseLeave={stopSlideshow}
+                      data-cursor="Explore activity"
+                      data-easteregg="Check it out!"
                     >
                       <img
                         src={
@@ -284,9 +415,13 @@ const App = () => {
                         alt={activity.activityTitle}
                         className="activity-image"
                       />
-                      <div className={`activity-details ${isInverted ? "inverted" : ""}`}>
-                        <h4 style={{color:"white"}}>{activity.activityTitle}</h4>
-                        <p style={{color:"gray"}}>{activity.description}</p>
+                      <div
+                        className={`activity-details `}
+                      >
+                        <h4 style={{ color: "white" }}>
+                          {activity.activityTitle}
+                        </h4>
+                        <p style={{ color: "gray" }}>{activity.description}</p>
                       </div>
                     </div>
                   ))}
