@@ -1,70 +1,28 @@
-# Phakaphol Portfolio Kmutt Edition
+# Phakaphol's Portfolio
 
-## Description
-Phakaphol Portfolio is an interactive, game-like personal portfolio website built using React. It features a dynamic menu navigation system that allows users to explore different sections using keyboard controls or mouse clicks. The design incorporates smooth animations powered by AOS and a visually engaging background video to enhance the user experience.
+Welcome to my personal portfolio website, a showcase of my journey as a Frontend Developer and Creative Technologist from KMUTT. This single-page React application highlights my technical skills, professional experiences, projects, and extracurricular activities through a dynamic, visually striking interface with a black/white theme toggle.
 
 ## Features
-- **Keyboard Navigation**: Navigate the menu using arrow keys and select options with Enter.
-- **Interactive ASCII Text**: A unique ASCII-styled title with animated wave effects.
-- **Background Video**: A looping background video for an immersive experience.
-- **Animated Page Transitions**: Smooth animations using AOS for a dynamic feel.
-- **Modular Component Structure**: Each section is built as a React component for maintainability.
-- **Dark Themed UI**: A sleek and modern design aesthetic.
+
+- **Responsive Hero Section**: A hero area with two side-by-side images that maintain consistent spacing and scale proportionally across devices, ensuring a clean layout from mobile to desktop.
+- **Who is Me**: An introduction to my background, passion for building seamless user experiences, and expertise in React, Next.js, and real-time AI integrations, with links to social profiles (GitHub, Instagram, etc.).
+- **Experience**: A grid of professional roles, including QA Specialist at SCB TechX, Frontend Developer at SIT DEV TEAM, and Hackathon Lead at KMUTT IoT Club.
+- **Projects**: A showcase of projects with images, descriptions, tech stacks, and links to live demos or repositories, arranged in a responsive grid.
+- **Activities**: A semester-based gallery of activities with hover-triggered image slideshows, highlighting my involvement in tech and creative initiatives.
+- **Theme Toggle**: A black/white toggle that inverts text colors using CSS filters, creating a bold, cohesive aesthetic.
+- **Animations**: Smooth GSAP scroll-triggered animations for section titles and content, enhancing interactivity.
 
 ## Tech Stack
-- **React**: Frontend framework for building UI components.
-- **AOS (Animate On Scroll)**: Handles page transitions and animations.
-- **CSS Modules**: Provides scoped and maintainable styles.
-- **JavaScript (ES6+)**: Core language for interactivity and state management.
 
-## Project Structure
-```
-📂 src/
- ├── assets/            # Contains background video and other media files
- ├── components/        # Reusable UI components
- │   ├── About.js
- │   ├── Activity.js
- │   ├── Contact.js
- │   ├── Project.js
- │   ├── Skill.js
- │   ├── ASCIIText.js   # ASCII text rendering component
- ├── App.js             # Main entry point
- ├── App.css            # Global styles
- ├── index.js           # Root React render file
- ├── data.js            # Stores data for the portfolio sections
- ├── transition.js      # Manages animations and transitions
-```
+- **Frontend**: React, JavaScript
+- **Styling**: CSS with custom properties, Google Fonts (Bebas Neue, Inter, Caveat)
+- **Animations**: GSAP with ScrollTrigger
+- **Build Tool**: Vite (assumed; update if using Create React App or other)
+- **Data**: Static JSON-like data from `src/Backend/Data.js`
+- **Dependencies**: Hosted via CDN for GSAP and ScrollTrigger
 
-## Installation & Setup
-1. **Clone the Repository**
-   ```sh
-   git clone https://github.com/GodzK/KMUTT-PHAKAPHOL.git
-   cd frontend
-   ```
-2. **Install Dependencies**
-   ```sh
-   npm install
-   ```
-3. **Run the Application**
-   ```sh
-   npm start
-   ```
+## Prerequisites
 
-## Usage
-- Open `http://localhost:3000/` in your browser.
-- Navigate using arrow keys or click to select a section.
-- Explore sections like About Me, Projects, Skills, Activity, and Contact.
-
-## Future Enhancements
-- Implement a **dark mode toggle** for better accessibility.
-- Add **project filtering and sorting** functionality.
-- Introduce **backend integration** to fetch dynamic content.
-- Enhance **responsiveness** for improved mobile experience.
-- Add **3D elements and interactive effects** using Three.js.
-
-## License
-This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Let me know if you want any modifications! 🚀
+- Node.js (v16 or higher)
+- npm or yarn
+- A modern web browser (Chrome, Firefox, etc.)
