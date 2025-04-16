@@ -92,8 +92,8 @@ const App = () => {
       <h1>Phakaphol</h1>
       <div className="container">
         <div className="image-wrapper">
-          <img id="white" src={white} alt="Mask" className="mask-image" />
-          <img id="black" src={black} alt="Mask" className="mask-image" />
+        <img id="black" src={black} alt="Mask" className="mask-image" />
+        <img id="white" src={white} alt="Mask" className="mask-image" />
         </div>
       </div>
       <div className="toggle-container" style={{ position: "relative" }}>

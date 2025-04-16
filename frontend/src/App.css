@@ -137,8 +137,9 @@ h1 {
   position: relative;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 105%;
   height: 100px;
+  scale: 3;
 }
 
 .toggle-switch {
