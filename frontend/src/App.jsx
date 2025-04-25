@@ -69,10 +69,7 @@ const App = () => {
 
       if (currentTarget) {
         let newText = currentTarget.getAttribute("data-cursor");
-        if (
-          currentTarget.hasAttribute("data-easteregg") &&
-          cursorIsOnRight
-        ) {
+        if (currentTarget.hasAttribute("data-easteregg") && cursorIsOnRight) {
           newText = currentTarget.getAttribute("data-easteregg");
         }
 
@@ -136,8 +133,8 @@ const App = () => {
         .timeline({
           scrollTrigger: {
             trigger: section,
-            start: "top 80%",
-            end: "top 20%",
+            start: "top 100%",
+            end: "top 50%",
             scrub: 1,
             toggleActions: "play none none reverse",
           },
@@ -203,8 +200,12 @@ const App = () => {
           <img id="white" src={white} alt="Mask" className="mask-image" />
         </div>
       </div>
-      <div className="toggle-container" style={{ position: "relative" }}  data-cursor="try toggle!">
-        <div className="toggle-switch" >
+      <div
+        className="toggle-container"
+        style={{ position: "relative" }}
+        data-cursor="try toggle!"
+      >
+        <div className="toggle-switch">
           <input
             type="checkbox"
             id="toggle"
@@ -217,18 +218,19 @@ const App = () => {
       </div>
       <div className="filter" ref={filterRef}></div>
 
-      <div className="content"  >
+      <div className="content">
         {/* Who is Me Section */}
         <section
           className="section"
-          ref={(el) => (sectionsRef.current[0] = el)} data-cursor="Know Me more 😊"
+          ref={(el) => (sectionsRef.current[0] = el)}
+          data-cursor="Know Me more 😊"
         >
           <div className="section-inner">
             <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
               Who is Me
             </h2>
             <div className="section-content">
-              <div className={`text-container ${isInverted ? "inverted" : ""}`} >
+              <div className={`text-container ${isInverted ? "inverted" : ""}`}>
                 <p style={{ width: "30%" }} id="content-para">
                   My name is Phakaphol Dherachaisuphakij, a 20-year-old Frontend
                   Developer and Creative Technologist from KMUTT, passionate
@@ -274,16 +276,20 @@ const App = () => {
                       easterEgg: "Friend me!",
                     },
                   ].map((social) => (
-                    <a
-                      key={social.id}
-                      href={social.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-cursor={social.cursorText}
-                      data-easteregg={social.easterEgg}
-                    >
-                      {social.text}
-                    </a>
+                    <button className="button" key={social.id} href={social.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-cursor={social.cursorText}
+                    data-easteregg={social.easterEgg}>
+                      <span className="shadow"></span>
+                      <span className="edge"></span>
+                      <div className="front">
+                        <a
+                        style={{color:"wheat"}}>
+                          {social.text}
+                        </a>
+                      </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -295,7 +301,7 @@ const App = () => {
         <section
           className="section"
           ref={(el) => (sectionsRef.current[1] = el)}
-           data-cursor="What experience i have ??"
+          data-cursor="What experience i have ??"
         >
           <div className="section-inner">
             <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
@@ -340,7 +346,7 @@ const App = () => {
         <section
           className="section"
           ref={(el) => (sectionsRef.current[2] = el)}
-           data-cursor="This is some cool project that i have "
+          data-cursor="This is some cool project that i have "
         >
           <div className="section-inner">
             <h2 className={`section-title`} style={{ color: "white" }}>
@@ -390,10 +396,7 @@ const App = () => {
             <div className="section-content activity-grid">
               {ActivityData.map((semester, index) => (
                 <div key={index} className="semester-item">
-                  <h3
-                    className={`text-container`}
-                    style={{ color: "white" }}
-                  >
+                  <h3 className={`text-container`} style={{ color: "white" }}>
                     {semester.Semester}
                   </h3>
                   {semester.Activity1.map((activity, idx) => (
@@ -415,9 +418,7 @@ const App = () => {
                         alt={activity.activityTitle}
                         className="activity-image"
                       />
-                      <div
-                        className={`activity-details `}
-                      >
+                      <div className={`activity-details `}>
                         <h4 style={{ color: "white" }}>
                           {activity.activityTitle}
                         </h4>
