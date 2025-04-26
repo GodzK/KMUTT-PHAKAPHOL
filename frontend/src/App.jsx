@@ -1,444 +1,445 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./App.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projectdata, ActivityData } from "../Backend/Data";
-import white from "./assets/white.png";
-import black from "./assets/black.png";
 
-gsap.registerPlugin(ScrollTrigger);
+import React, { useState, useEffect, useRef } from 'react';
+import { projectdata, ActivityData, socialLinks } from '../Backend/Data';
+import './App.css';
+
+const MatrixRain = () => {
+  const canvasRef = useRef(null);
+  
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+    
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
+    }
+    
+    const matrix = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    
+    function draw() {
+      ctx.fillStyle = "rgba(0, 10, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      ctx.fillStyle = "#33ff33";
+      ctx.font = `${fontSize}px monospace`;
+      
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrix[Math.floor(Math.random() * matrix.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        
+        drops[i]++;
+      }
+    }
+    
+    const matrixInterval = setInterval(draw, 60);
+    
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      clearInterval(matrixInterval);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
+  return <canvas ref={canvasRef} className="matrix-bg"></canvas>;
+};
+
+const TypewriterText = ({ text, delay = 50 }) => {
+  const [displayText, setDisplayText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timer = setTimeout(() => {
+        setDisplayText(prev => prev + text[currentIndex]);
+        setCurrentIndex(prev => prev + 1);
+      }, delay);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, text, delay]);
+  
+  return <span>{displayText}<span className="cursor">_</span></span>;
+};
+
+const LoadingDots = () => {
+  return (
+    <div className="loading">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
+};
+
+const SkillsDisplay = ({ skills }) => {
+  return (
+    <div className="skills-container">
+      {skills.map((skill, index) => (
+        <div key={index} className="skill-item" style={{ '--delay': `${index * 0.1}s` }}>
+          {skill}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const App = () => {
-  const filterRef = useRef(null);
-  const sectionsRef = useRef([]);
-  const cursorRef = useRef(null); // Ref for cursor element
-  const [currentImages, setCurrentImages] = useState({});
-  const [isInverted, setIsInverted] = useState(false);
-
-  // Theme toggle functionality
-  const toggleRotation = () => {
-    const filter = filterRef.current;
-    const currentRotation = filter.style.transform.includes("180") ? 180 : 0;
-    const newRotation = currentRotation === 0 ? 180 : 0;
-    filter.style.transition = "transform 1s ease-in-out";
-    filter.style.transform = `rotate(${newRotation}deg)`;
-    setIsInverted(!isInverted);
-  };
-
-  // Cursor logic
+  const [currentSection, setCurrentSection] = useState('about');
+  const [isLoading, setIsLoading] = useState(true);
+  const [typingComplete, setTypingComplete] = useState(false);
+  const terminalRef = useRef(null);
+  
+  const skills = [
+    'React', 'Next.js', 'Cypress', 'JavaScript', 'TypeScript', 
+    'Tailwind CSS', 'Jest', 'RESTful APIs', 'Git', 'Webpack'
+  ];
+  
   useEffect(() => {
-    const cursorItem = cursorRef.current;
-    const cursorParagraph = cursorItem.querySelector("p");
-    const targets = document.querySelectorAll("[data-cursor]");
-    let xOffset = 6;
-    let yOffset = 50;
-    let cursorIsOnRight = false;
-    let currentTarget = null;
-    let lastText = "";
-
-    // Position cursor relative to actual cursor position
-    gsap.set(cursorItem, { xPercent: xOffset, yPercent: yOffset });
-
-    // GSAP quickTo for smooth cursor movement
-    const xTo = gsap.quickTo(cursorItem, "x", { ease: "power3" });
-    const yTo = gsap.quickTo(cursorItem, "y", { ease: "power3" });
-
-    // Mousemove handler
+    // Simulate loading
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    
+    return () => clearTimeout(timer);
+  }, []);
+  
+  useEffect(() => {
+    // Add 3D tilt effect
+    const terminal = terminalRef.current;
+    
     const handleMouseMove = (e) => {
-      const windowWidth = window.innerWidth;
-      const windowHeight = window.innerHeight;
-      const scrollY = window.scrollY;
-      const cursorX = e.clientX;
-      const cursorY = e.clientY + scrollY;
-
-      let xPercent = xOffset;
-      let yPercent = yOffset;
-
-      // Adjust X offset for right side
-      if (cursorX > windowWidth * 0.66) {
-        cursorIsOnRight = true;
-        xPercent = -100;
-      } else {
-        cursorIsOnRight = false;
-      }
-
-      // Adjust Y offset for bottom
-      if (cursorY > scrollY + windowHeight * 0.9) {
-        yPercent = -120;
-      }
-
-      if (currentTarget) {
-        let newText = currentTarget.getAttribute("data-cursor");
-        if (currentTarget.hasAttribute("data-easteregg") && cursorIsOnRight) {
-          newText = currentTarget.getAttribute("data-easteregg");
-        }
-
-        if (newText !== lastText) {
-          cursorParagraph.innerHTML = newText;
-          lastText = newText;
-        }
-      }
-
-      gsap.to(cursorItem, {
-        xPercent: xPercent,
-        yPercent: yPercent,
-        duration: 0.9,
-        ease: "power3",
-      });
-      xTo(cursorX);
-      yTo(cursorY - scrollY);
+      if (!terminal) return;
+      
+      const rect = terminal.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const tiltX = 1; // Smaller tilt angle
+      const tiltY = -1; // Smaller tilt angle
+      
+      terminal.style.transform = `perspective(1500px) rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
     };
-
-    // Mouseenter handler for targets
-    targets.forEach((target) => {
-      target.addEventListener("mouseenter", () => {
-        currentTarget = target;
-        let newText = target.hasAttribute("data-easteregg")
-          ? target.getAttribute("data-easteregg")
-          : target.getAttribute("data-cursor");
-
-        if (newText !== lastText) {
-          cursorParagraph.innerHTML = newText;
-          lastText = newText;
-        }
-      });
-
-      target.addEventListener("mouseleave", () => {
-        currentTarget = null;
-        cursorParagraph.innerHTML = "Learn more";
-        lastText = "Learn more";
-      });
-    });
-
-    // Add mousemove listener
-    window.addEventListener("mousemove", handleMouseMove);
-
-    // Cleanup
+    
+    const handleMouseLeave = () => {
+      if (!terminal) return;
+      terminal.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg)';
+    };
+    
+    if (terminal) {
+      terminal.addEventListener('mousemove', handleMouseMove);
+      terminal.addEventListener('mouseleave', handleMouseLeave);
+    }
+    
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      targets.forEach((target) => {
-        target.removeEventListener("mouseenter", () => {});
-        target.removeEventListener("mouseleave", () => {});
-      });
+      if (terminal) {
+        terminal.removeEventListener('mousemove', handleMouseMove);
+        terminal.removeEventListener('mouseleave', handleMouseLeave);
+      }
     };
-  }, []);
+  }, [terminalRef.current]);
+  
+  const handleSectionChange = (section) => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setCurrentSection(section);
+      setIsLoading(false);
+    }, 300);
+  };
 
-  // GSAP animations for sections
-  useEffect(() => {
-    sectionsRef.current.forEach((section, index) => {
-      const title = section.querySelector(".section-title");
-      const content = section.querySelector(".section-content");
-
-      gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top 100%",
-            end: "top 50%",
-            scrub: 1,
-            toggleActions: "play none none reverse",
-          },
-        })
-        .to(
-          title,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-          },
-          0
-        )
-        .to(
-          content,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "power2.out",
-            delay: 0.2,
-          },
-          0
+  const renderSection = () => {
+    if (isLoading) {
+      return (
+        <div className="output loading-section">
+          <p>Loading data<LoadingDots /></p>
+        </div>
+      );
+    }
+    
+    switch (currentSection) {
+      case 'about':
+        return (
+          <div className="output typewriter">
+            <p className="intro-line"> Hello, I'm <span className="highlight">Phakaphol Dherachaisuphakij</span></p>
+            <p> A passionate QA Specialist and Frontend Developer</p>
+            <p> Currently at SCB TechX, building robust testing pipelines</p>
+            <p> Skilled in React, Next.js, and Cypress</p>
+            
+            <SkillsDisplay skills={skills} />
+            
+            <p className="navigation-hint"> Type <a href="#projects" onClick={() => handleSectionChange('projects')}>[projects]</a> or <a href="#experience" onClick={() => handleSectionChange('experience')}>[experience]</a> to know more</p>
+          </div>
         );
-    });
-  }, []);
-
-  // Image slideshow for activity cards
-  const startSlideshow = (activityId, images) => {
-    if (images.length <= 1) return;
-
-    const interval = setInterval(() => {
-      setCurrentImages((prev) => {
-        const currentIndex = prev[activityId]
-          ? (prev[activityId].index + 1) % images.length
-          : 1;
-        return {
-          ...prev,
-          [activityId]: { src: images[currentIndex], index: currentIndex },
-        };
-      });
-    }, 1000);
-
-    return () => clearInterval(interval);
-  };
-
-  const stopSlideshow = () => {
-    setCurrentImages({});
-  };
-
-  return (
-    <div className="app">
-      {/* Cursor Element */}
-      <div className="cursor" ref={cursorRef}>
-        <p>Learn more</p>
-      </div>
-
-      <h1>Phakaphol</h1>
-      <div className="container">
-        <div className="image-wrapper">
-          <img id="black" src={black} alt="Mask" className="mask-image" />
-          <img id="white" src={white} alt="Mask" className="mask-image" />
-        </div>
-      </div>
-      <div
-        className="toggle-container"
-        style={{ position: "relative" }}
-        data-cursor="try toggle!"
-      >
-        <div className="toggle-switch">
-          <input
-            type="checkbox"
-            id="toggle"
-            className="toggle-input"
-            onChange={toggleRotation}
-            checked={isInverted}
-          />
-          <label htmlFor="toggle" className="toggle-label"></label>
-        </div>
-      </div>
-      <div className="filter" ref={filterRef}></div>
-
-      <div className="content">
-        {/* Who is Me Section */}
-        <section
-          className="section"
-          ref={(el) => (sectionsRef.current[0] = el)}
-          data-cursor="Know Me more 😊"
-        >
-          <div className="section-inner">
-            <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
-              Who is Me
-            </h2>
-            <div className="section-content">
-              <div className={`text-container ${isInverted ? "inverted" : ""}`}>
-                <p style={{ width: "30%" }} id="content-para">
-                  My name is Phakaphol Dherachaisuphakij, a 20-year-old Frontend
-                  Developer and Creative Technologist from KMUTT, passionate
-                  about building seamless user experiences through code and
-                  design. With hands-on experience in React, Next.js, and
-                  real-time AI integrations, I specialize in crafting
-                  interactive web applications that blend functionality with
-                  aesthetic precision.
-                </p>
-
-                <div className="social-links">
-                  {[
-                    {
-                      id: "github",
-                      name: "Github",
-                      link: "https://github.com/GodzK",
-                      text: "Github",
-                      cursorText: "Visit my GitHub",
-                      easterEgg: "Code with me!",
-                    },
-                    {
-                      id: "ig",
-                      name: "Instagram",
-                      link: "https://www.instagram.com/pk._tcsk/",
-                      text: "Instagram",
-                      cursorText: "Follow me on IG",
-                      easterEgg: "See my posts!",
-                    },
-                    {
-                      id: "Borntodev",
-                      name: "Borntodev",
-                      link: "https://www.borntodev.com/author/godzk25gmail-com/",
-                      text: "Borntodev",
-                      cursorText: "Explore Borntodev",
-                      easterEgg: "Learn coding!",
-                    },
-                    {
-                      id: "Facebook",
-                      name: "Facebook",
-                      link: "https://www.facebook.com/phakaphol.dherachaisuphakij/",
-                      text: "Facebook",
-                      cursorText: "Connect on FB",
-                      easterEgg: "Friend me!",
-                    },
-                  ].map((social) => (
-                    <button className="button" key={social.id} href={social.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-cursor={social.cursorText}
-                    data-easteregg={social.easterEgg}>
-                      <span className="shadow"></span>
-                      <span className="edge"></span>
-                      <div className="front">
-                        <a
-                        style={{color:"wheat"}}>
-                          {social.text}
-                        </a>
-                      </div>
-                    </button>
+      case 'projects':
+        return (
+          <div className="output">
+            <p className="section-title"> <span className="command-prompt">&gt;</span> My Projects</p>
+            {projectdata.map((project, index) => (
+              <div key={index} className="project-item" style={{ '--animation-order': index }}>
+                <p className="project-title"> {project.projectname}</p>
+                <p className="project-desc">  Description: {project.description}</p>
+                <p className="tech-stack">  Tech Stack: {project.techStack.join(', ')}</p>
+                <p className="project-link">  <a href={project.link} target="_blank" rel="noopener noreferrer" className="glowing-link">[View Project]</a></p>
+                <div className="image-container">
+                  <img src={project.picture} alt={project.projectname} className="project-image" loading="lazy" />
+                  <div className="image-overlay"></div>
+                </div>
+              </div>
+            ))}
+            <p className="back-link"> Type <a href="#about" onClick={() => handleSectionChange('about')}>[about]</a> to return</p>
+          </div>
+        );
+      case 'experience':
+        return (
+          <div className="output">
+            <p className="section-title"> <span className="command-prompt">&gt;</span> My Experience</p>
+            <div className="timeline">
+              <div className="timeline-item">
+                <p className="position"> QA Specialist @ SCB TechX <span className="date">(Apr 2025 - Present)</span></p>
+                <p className="responsibility">  - Architected robust testing pipelines with Cypress</p>
+                <p className="responsibility">  - Implemented automated UI and API testing frameworks</p>
+                <p className="responsibility">  - Collaborated with development teams to ensure code quality</p>
+              </div>
+              
+              <div className="timeline-item">
+                <p className="position"> Frontend Developer @ SIT DEV TEAM <span className="date">(Feb 2025 - Mar 2025)</span></p>
+                <p className="responsibility">  - Crafted pixel-perfect Next.js interfaces</p>
+                <p className="responsibility">  - Developed responsive and accessible web applications</p>
+                <p className="responsibility">  - Optimized performance using modern React practices</p>
+              </div>
+              
+              <div className="timeline-item">
+                <p className="position"> Hackathon Lead @ KMUTT IoT Club <span className="date">(Oct 2024)</span></p>
+                <p className="responsibility">  - Led AI-driven IoT solutions, securing top honors</p>
+                <p className="responsibility">  - Managed a team of 5 developers to create innovative solutions</p>
+                <p className="responsibility">  - Presented technical concepts to non-technical judges</p>
+              </div>
+            </div>
+            <p className="next-link"> Type <a href="#activities" onClick={() => handleSectionChange('activities')}>[activities]</a> for more</p>
+          </div>
+        );
+      case 'activities':
+        return (
+          <div className="output">
+            <p className="section-title"> <span className="command-prompt">&gt;</span> My Activities</p>
+            {ActivityData.map((semester, index) => (
+              semester.Activity1.length > 0 && (
+                <div key={index} className="semester-container">
+                  <p className="semester-title"> {semester.Semester}</p>
+                  {semester.Activity1.map((activity, idx) => (
+                    <div key={idx} className="activity-item" style={{ '--animation-order': idx }}>
+                      <p className="activity-title"> {activity.activityTitle}</p>
+                      <p className="activity-desc">  {activity.description}</p>
+                      <div className="image-container">
+                        <img src={activity.image} alt={activity.activityTitle} className="activity-image" loading="lazy" />
+                        <div className="image-overlay"></div>
+                      </div></div>
                   ))}
+                </div>
+              )
+            ))}
+            <p className="back-link"> Type <a href="#about" onClick={() => handleSectionChange('about')}>[about]</a> to return</p>
+          </div>
+        );
+      case 'social':
+        return (
+          <div className="output">
+            <p className="section-title"> <span className="command-prompt">&gt;</span> Connect with me</p>
+            <div className="social-links-container">
+              {socialLinks.map((link, index) => (
+                <p key={index} className="social-link" style={{ '--animation-order': index }}>
+                  <a href={link.link} target="_blank" rel="noopener noreferrer" className="social-button">
+                    [{link.text}]
+                  </a>
+                </p>
+              ))}
+            </div>
+            <p className="back-link"> Type <a href="#about" onClick={() => handleSectionChange('about')}>[about]</a> to return</p>
+          </div>
+        );
+      case 'skills':
+        return (
+          <div className="output">
+            <p className="section-title"> <span className="command-prompt">&gt;</span> My Technical Skills</p>
+            
+            <div className="skills-categories">
+              <div className="skill-category">
+                <p className="category-title">Frontend Development</p>
+                <div className="skill-progress-container">
+                  <div className="skill-bar">
+                    <span className="skill-name">React</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '90%'}}></div>
+                    </div>
+                    <span className="percentage">90%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <span className="skill-name">Next.js</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '85%'}}></div>
+                    </div>
+                    <span className="percentage">85%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <span className="skill-name">TypeScript</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '80%'}}></div>
+                    </div>
+                    <span className="percentage">80%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <span className="skill-name">Tailwind CSS</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '95%'}}></div>
+                    </div>
+                    <span className="percentage">95%</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="skill-category">
+                <p className="category-title">Testing</p>
+                <div className="skill-progress-container">
+                  <div className="skill-bar">
+                    <span className="skill-name">Cypress</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '95%'}}></div>
+                    </div>
+                    <span className="percentage">95%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <span className="skill-name">Jest</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '85%'}}></div>
+                    </div>
+                    <span className="percentage">85%</span>
+                  </div>
+                  <div className="skill-bar">
+                    <span className="skill-name">Testing Library</span>
+                    <div className="progress-bar">
+                      <div className="progress" style={{width: '80%'}}></div>
+                    </div>
+                    <span className="percentage">80%</span>
+                  </div>
                 </div>
               </div>
             </div>
+            
+            <p className="back-link"> Type <a href="#about" onClick={() => handleSectionChange('about')}>[about]</a> to return</p>
           </div>
-        </section>
+        );
+      default:
+        return null;
+    }
+  };
+  
+  const handleKeyCommand = (e) => {
+    if (e.key === 'Enter') {
+      const command = e.target.value.toLowerCase().trim();
+      
+      if (command.includes('about')) {
+        handleSectionChange('about');
+      } else if (command.includes('projects')) {
+        handleSectionChange('projects');
+      } else if (command.includes('experience')) {
+        handleSectionChange('experience');
+      } else if (command.includes('activities')) {
+        handleSectionChange('activities');
+      } else if (command.includes('social')) {
+        handleSectionChange('social');
+      } else if (command.includes('skills')) {
+        handleSectionChange('skills');
+      } else if (command.includes('help')) {
+        handleSectionChange('about');
+      } else if (command === 'clear') {
+        // Handle clear command
+      } else {
+        // Handle unknown command
+      }
+      
+      e.target.value = '';
+    }
+  };
 
-        {/* Experience Section */}
-        <section
-          className="section"
-          ref={(el) => (sectionsRef.current[1] = el)}
-          data-cursor="What experience i have ??"
-        >
-          <div className="section-inner">
-            <h2 className={`section-title ${isInverted ? "inverted" : ""}`}>
-              Experience
-            </h2>
-            <div className="section-content experience-grid">
-              {[
-                {
-                  title: "QA Specialist",
-                  company: "SCB TechX",
-                  period: "Apr 2025 - Present",
-                  desc: "Architected robust testing pipelines with Cypress.",
-                },
-                {
-                  title: "Frontend Developer",
-                  company: "SIT DEV TEAM",
-                  period: "Feb 2025 - Mar 2025",
-                  desc: "Crafted pixel-perfect Next.js interfaces.",
-                },
-                {
-                  title: "Hackathon Lead",
-                  company: "KMUTT IoT Club",
-                  period: "Oct 2024",
-                  desc: "Led AI-driven IoT solutions, securing top honors.",
-                },
-              ].map((exp, index) => (
-                <div key={index} className="experience-card">
-                  <div className={`text-container`}>
-                    <h3 style={{ color: "white" }}>{exp.title}</h3>
-                    <p style={{ color: "white" }}>
-                      {exp.company} | {exp.period}
-                    </p>
-                    <p style={{ color: "gray" }}>{exp.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+  return (
+    <>
+      <MatrixRain />
+      <div className="terminal" ref={terminalRef}>
+        <div className="noise"></div>
+        <div className="overlay"></div>
+        <div className="terminal-header">
+          <div className="terminal-buttons">
+            <span className="terminal-button close"></span>
+            <span className="terminal-button minimize"></span>
+            <span className="terminal-button maximize"></span>
           </div>
-        </section>
-
-        {/* Projects Section */}
-        <section
-          className="section"
-          ref={(el) => (sectionsRef.current[2] = el)}
-          data-cursor="This is some cool project that i have "
-        >
-          <div className="section-inner">
-            <h2 className={`section-title`} style={{ color: "white" }}>
-              Projects
-            </h2>
-            <div className="section-content project-grid">
-              {projectdata.map((project, index) => (
-                <div key={index} className="project-card">
-                  <img
-                    src={project.picture}
-                    alt={project.projectname}
-                    className="project-image"
-                  />
-                  <div className={`project-details`}>
-                    <h3 style={{ color: "white" }}>{project.projectname}</h3>
-                    <p style={{ color: "gray" }}>{project.description}</p>
-                    <p style={{ color: "gray" }}>
-                      <strong>Tech Stack:</strong>{" "}
-                      {project.techStack.join(", ")}
-                    </p>
-                    <p style={{ color: "gray" }}>{project.experience}</p>
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-cursor="View this project"
-                      data-easteregg="Dive in!"
-                    >
-                      View Project
-                    </a>
-                  </div>
-                </div>
-              ))}
+          <div className="terminal-title">Phakaphol.exe</div>
+        </div>
+        
+        <h1>Phakaphol.<span className="errorcode">CMD</span></h1>
+        
+        <div className="boot-sequence">
+          {isLoading && (
+            <>
+              <p>Initializing system...</p>
+              <p>Loading modules...</p>
+              <p>Starting portfolio.exe...</p>
+              <LoadingDots />
+            </>
+          )}
+        </div>
+        
+        {!isLoading && (
+          <>
+            <div className="output welcome-message">
+              <p> Welcome to my portfolio terminal</p>
+              <p> Navigate using commands:</p>
             </div>
-          </div>
-        </section>
-
-        {/* Activities Section */}
-        <section
-          className="section"
-          ref={(el) => (sectionsRef.current[3] = el)}
-        >
-          <div className="section-inner">
-            <h2 className={`section-title`} style={{ color: "white" }}>
-              Activities
-            </h2>
-            <div className="section-content activity-grid">
-              {ActivityData.map((semester, index) => (
-                <div key={index} className="semester-item">
-                  <h3 className={`text-container`} style={{ color: "white" }}>
-                    {semester.Semester}
-                  </h3>
-                  {semester.Activity1.map((activity, idx) => (
-                    <div
-                      key={idx}
-                      className="activity-card"
-                      onMouseEnter={() =>
-                        startSlideshow(`${index}-${idx}`, activity.activitypic)
-                      }
-                      onMouseLeave={stopSlideshow}
-                      data-cursor="Explore activity"
-                      data-easteregg="Check it out!"
-                    >
-                      <img
-                        src={
-                          currentImages[`${index}-${idx}`]?.src ||
-                          activity.activitypic[0]
-                        }
-                        alt={activity.activityTitle}
-                        className="activity-image"
-                      />
-                      <div className={`activity-details `}>
-                        <h4 style={{ color: "white" }}>
-                          {activity.activityTitle}
-                        </h4>
-                        <p style={{ color: "gray" }}>{activity.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ))}
+            
+            <div className="nav-links">
+              <a href="#about" onClick={() => handleSectionChange('about')}>[about]</a>
+              <a href="#projects" onClick={() => handleSectionChange('projects')}>[projects]</a>
+              <a href="#experience" onClick={() => handleSectionChange('experience')}>[experience]</a>
+              <a href="#activities" onClick={() => handleSectionChange('activities')}>[activities]</a>
+              <a href="#skills" onClick={() => handleSectionChange('skills')}>[skills]</a>
+              <a href="#social" onClick={() => handleSectionChange('social')}>[social]</a>
             </div>
-          </div>
-        </section>
+            
+            {renderSection()}
+            
+            <div className="command-input-container">
+              <span className="prompt">guest@portfolio:~$</span>
+              <input
+                type="text"
+                className="command-input"
+                placeholder="Type a command..."
+                onKeyPress={handleKeyCommand}
+                spellCheck="false"
+                autoComplete="off"
+              />
+            </div>
+          </>
+        )}
       </div>
-
-      <footer className="footer">
-        <p className={`text-container ${isInverted ? "inverted" : ""}`}>
-          Phakaphol Dherachaisuphakij - Portfolio 2025
-        </p>
-      </footer>
-    </div>
+    </>
   );
 };
 
