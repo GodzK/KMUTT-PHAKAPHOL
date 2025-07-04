@@ -19,8 +19,9 @@ import iot5 from "../../frontend/src/IOT/iot5.jpg";
 import it3k from "../../frontend/src/assets/IT3K/3klogo.png";
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
+import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
 import moodbase from "../../frontend/src/assets/moodbase.png"
-
+import iphone from "../../frontend/src/assets/iphone.png"
 export const projectdata = [
   {
     projectname: "IT 3KINGS 19TH Web Application",
@@ -47,6 +48,26 @@ export const projectdata = [
     experience:
       "I learned how to build a full-stack web application that connects with AI models and IoT hardware. This involved integrating real-time detection data, optimizing performance, and handling asynchronous communication between frontend and backend.",
     link: "https://github.com/IOT4NHOR/Frontend",
+  },
+  {
+    projectname: "Pheeraphat Portfolio",
+    description:
+      "A Static web with a stunning design using only html css and js but i make it for my brother pheeraphat because i saw my brother have only notion page for portfolio ",
+    techStack: ["HTML",'CSS','JS'],
+    picture: pheeraphat,
+    experience:
+      "Ant design using material ui and good structure of code",
+    link: "https://pheeraphat-portfolio-beta.vercel.app/",
+  },
+  {
+    projectname: "Iphone 15 clone",
+    description:
+      "After completing this project, I understand how to build a mobile-style UI using HTML and CSS. I gain skills in using Flexbox, animations, and responsive design. I learn to dynamically update content like time using JavaScript. I also handle user interactions such as tapping icons or unlocking screens. Overall, I improve my ability to recreate real-world interfaces and structure front-end code efficiently.",
+    techStack: ["HTML",'CSS','JS'],
+    picture: iphone,
+    experience:
+      "Ant design using material ui and good structure of code",
+    link: "https://iphone-clone-godzk.vercel.app/",
   },
   {
     projectname: "PK Shop",
