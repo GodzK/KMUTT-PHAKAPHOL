@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { projectdata, ActivityData, socialLinks } from '../Backend/Data';
+import { projectdata, ActivityData, socialLinks ,accordionItems} from '../Backend/Data';
 import "./App.css"
+import { div } from 'framer-motion/client';
 
     const MatrixRain = () => {
       const canvasRef = useRef(null);
@@ -100,13 +101,40 @@ import "./App.css"
     );
 
     const SkillsDisplay = ({ skills }) => (
-      <div className="skills-container">
-        {skills.map((skill , index) => (
-          <div key={index} className="skill-item" style={{ '--delay': `${index * 0.1}s` }}>
-            {skill}
-          </div>
+      <div className="h-screen font-poppins text-white overflow-hidden">
+      <ul className="c-accordion flex h-full list-none p-0 m-0">
+        {accordionItems.map((item) => (
+          <li
+            key={item.id}
+            id={item.id}
+            className="c-accordion__item relative flex-1 h-full min-w-[2.05rem] transition-all duration-300 ease-in-out bg-cover bg-center hover:flex-[2] hover:w-1/2 hover:bg-transparent group"
+            style={{
+              backgroundImage: `url(${item.cover}), linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%)`,
+              backgroundColor: '#3E66A0',
+            }}
+          >
+            <a
+              href={`#${item.id}`}
+              className="c-accordion__action absolute inset-0 flex justify-center bg-gradient-to-b from-transparent to-[#111111] bg-opacity-75 no-underline"
+            >
+              <div className="c-accordion__content w-[55%] text-left pt-96 pl-32 pr-18 -left-[50rem] font-['Roboto_Condensed']">
+                <h2 className="c-accordion__title c-accordion__title--hero text-6xl font-bold uppercase -ml-[145px] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                  {item.title}
+                </h2>
+                <p className="c-accordion__description font-medium leading-tight -ml-[145px] w-[85%] opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out">
+                  {item.description}
+                </p>
+              </div>
+              <div className="c-accordion__aside absolute right-4 bottom-0 h-full flex items-center flex-nowrap whitespace-nowrap [writing-mode:vertical-rl] rotate-180 before:content-['+'] before:text-3xl before:mb-4 before:inline-block after:flex-1 after:w-px after:mt-4 after:bg-white/20">
+                <h2 className="c-accordion__title font-['Roboto_Condensed'] max-h-full group-hover:max-h-0 group-hover:opacity-0 transition-all duration-300 ease-in-out">
+                  {item.title}
+                </h2>
+              </div>
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
+    </div>
     );
 
     const App = () => {
@@ -305,31 +333,28 @@ import "./App.css"
             );
           case 'social':
             return (
-              <div className="output">
-                <p className="section-title">
-                  <span className="command-prompt"></span> Connect with me
-                </p>
-                <div className="social-links-container">
-                  {socialLinks.map((link, index) => (
-                    <p key={index} className="social-link" style={{ '--animation-order': index }}>
-                      <a
-                        href={link.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="social-button"
-                        aria-label={`Visit my ${link.text} profile`}
-                      >
-                        [{link.text}]
-                      </a>
-                    </p>
-                  ))}
-                </div>
-                <p className="back-link">
-                  Type <a href="#about" onClick={() => handleSectionChange('about')}>
-                    [about]
-                  </a> to return
-                </p>
-              </div>
+              
+              <div className="center">
+          <div id="social-test">
+            <ul className="social">
+              {socialLinks.map((link, index) => (
+                <li key={index}>
+  <a
+    href={link.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`Visit my ${link.text} profile`}
+    className={`social-link ${link.id}`} 
+  >
+    <i className={`fa ${link.icon}`} aria-hidden="true"></i>
+  </a>
+</li>
+
+              ))}
+            </ul>
+           
+          </div>
+        </div>
             );
           case 'skills':
             return (

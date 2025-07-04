@@ -22,6 +22,8 @@ import pkflix from "../../frontend/src/assets/pkflix.png";
 import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
 import moodbase from "../../frontend/src/assets/moodbase.png"
 import iphone from "../../frontend/src/assets/iphone.png"
+import helloworld from "../../frontend/src/assets/accordion/helloworld.jpg"
+import teacher from "../../frontend/src/assets/accordion/Teacher.jpg"
 export const projectdata = [
   {
     projectname: "IT 3KINGS 19TH Web Application",
@@ -160,11 +162,36 @@ export const ActivityData = [
     Activity1: [],
   },
 ];
-
+export const accordionItems = [
+  {
+    id: 'cf',
+    title: 'Quality Assurance',
+    description: 'Automate Tester',
+    cover: helloworld,
+  },
+  {
+    id: 'corp',
+    title: 'Teacher',
+    description: 'Programming and English',
+    cover: teacher,
+  },
+  {
+    id: 'lead',
+    title: 'LEADERSHIP',
+    description: 'Vice President of Class',
+    cover: tpr3,
+  },
+  {
+    id: 'warehouse',
+    title: 'FrontEnd Developer',
+    description: 'Ux/Ui Designer',
+    cover: iot5,
+  },
+];
 export const socialLinks = [
-  { id: "github", name: "Github", link: "https://github.com/GodzK", text: "Github" },
-  { id: "ig", name: "Instagram", link: "https://www.instagram.com/pk._tcsk/", text: "Instagram" },
-  { id: "Borntodev", name: "Borntodev", link: "https://www.borntodev.com/author/godzk25gmail-com/", text: "Borntodev" },
-  { id: "Facebook", name: "Facebook", link: "https://www.facebook.com/phakaphol.dherachaisuphakij/", text: "Facebook" },
+  { id: "github", name: "Github", link: "https://github.com/GodzK", text: "Github" ,icon: 'fa-github'},
+  { id: "ig", name: "Instagram", link: "https://www.instagram.com/pk._tcsk/", text: "Instagram" , icon: 'fa-instagram' },
+  { id: "Borntodev", name: "Borntodev", link: "https://www.borntodev.com/author/godzk25gmail-com/", text: "Borntodev" ,icon: 'fa-bold'},
+  { id: "Facebook", name: "Facebook", link: "https://www.facebook.com/phakaphol.dherachaisuphakij/", text: "Facebook", icon: 'fa-facebook' },
 ]
  
