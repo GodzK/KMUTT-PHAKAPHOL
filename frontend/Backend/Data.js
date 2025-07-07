@@ -20,10 +20,12 @@ import it3k from "../../frontend/src/assets/IT3K/3klogo.png";
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
 import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
-import moodbase from "../../frontend/src/assets/moodbase.png"
+// import moodbase from "../../frontend/src/assets/moodbase.png"
 import iphone from "../../frontend/src/assets/iphone.png"
+import itfunslide from  "../../frontend/src/assets/it-fun-slide.png"
 import helloworld from "../../frontend/src/assets/accordion/helloworld.jpg"
 import teacher from "../../frontend/src/assets/accordion/Teacher.jpg"
+import ecom from "../../frontend/src/assets/ecom.png"
 export const projectdata = [
   {
     projectname: "IT 3KINGS 19TH Web Application",
@@ -71,6 +73,7 @@ export const projectdata = [
       "Ant design using material ui and good structure of code",
     link: "https://iphone-clone-godzk.vercel.app/",
   },
+
   {
     projectname: "PK Shop",
     description:
@@ -82,14 +85,12 @@ export const projectdata = [
     link: "https://github.com/GodzK/PkShop",
   },
   {
-    projectname: "(Mood base) Coffee Shop",
+    projectname: "Phakaphol-Ecommerce-Template",
     description:
-      "This project is a media recommendation system designed to help people who are emotionally struggling—whether due to depression, grief, burnout, or feeling disconnected from the world—find media content that offers true empathy and emotional healing.",
-    techStack: ["React", "Express.js", "Node.js", "MongoDB"],
-    picture: moodbase,
-    experience:
-      "It categorizes content (movies, series, books, podcasts, and poetry) by detailed mood profiles, such as: Low energy or mental fatigue Feelings of worthlessness or numbnessA desire for comfort or deeper understanding",
-    link: "https://github.com/GodzK/PkShop",
+      "Roby is a sleek and modern HTML/CSS-based ecommerce landing page template designed for promoting and selling sneakers, especially targeting a fashion-conscious audience. It's fully responsive and visually engaging with a product-focused layout.",
+    techStack: ["HTML", "Css", "Javascript"],
+    picture:ecom,
+    link: "https://phakaphol-ecommerce-landing-page.vercel.app/",
   },
   {
     projectname: "PKCrypto",
@@ -100,6 +101,14 @@ export const projectdata = [
     experience:
       "I gained hands-on experience with REST API consumption, real-time data visualization, and crafting a clean user interface using CSS for presenting financial metrics.",
     link: "https://p-koin.vercel.app/",
+  },
+  {
+    projectname: "IT-Fundamental slide Show",
+    description:
+      "A modern, responsive landing page for an Online Learning Platform, designed and built by Pk Phakaphol Tcsk, a frontend developer 👑This project showcases a clean UI with vibrant course sections, testimonials, and a bold hero section to encourage users to explore educational content.",
+    techStack: ["Gsap", "Css", "Javascript"],
+    picture:itfunslide,
+    link: "https://starterpack-it-fundamental-slidesho.vercel.app/",
   },
   {
     projectname: "Hello World Booking Application",
