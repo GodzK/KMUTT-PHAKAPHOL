@@ -649,23 +649,7 @@ h1::before {
   align-items: flex-end;
 }
 
-.image-container {
-  width: 100px;
-  height: 100px;
-  background: #ffffff;
-  border: 4px solid #000;
-  transform: translateY(50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.image-container img {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border: 2px solid #000;
-}
 
 .lower-container {
   padding: 60px 20px 30px;
