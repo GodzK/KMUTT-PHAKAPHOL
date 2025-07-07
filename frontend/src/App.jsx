@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import { projectdata, ActivityData, socialLinks ,accordionItems} from '../Backend/Data';
 import "./App.css"
 import { div } from 'framer-motion/client';
@@ -207,7 +206,7 @@ import { div } from 'framer-motion/client';
             return (
               <div className="output">
                 <p className="section-title">
-                  <span className="command-prompt">></span> My Projects
+                  <span className="command-prompt text-[--primary] mr-3">></span> My Projects
                 </p>
                 {projectdata.map((project, index) => (
                   <div key={index} className="project-item" style={{ '--animation-order': index }}>
@@ -245,7 +244,7 @@ import { div } from 'framer-motion/client';
             return (
               <div className="output">
                 <p className="section-title">
-                  <span className="command-prompt"></span> My Experience
+                  <span className="command-prompt text-[--primary] mr-3">></span> My Experience
                 </p>
                 <div className="timeline">
                   <div className="timeline-item">
@@ -296,7 +295,7 @@ import { div } from 'framer-motion/client';
             return (
               <div className="output">
                 <p className="section-title">
-                  <span className="command-prompt">></span> My Activities
+                  <span className="command-prompt text-[--primary] mr-3">></span> My Activities
                 </p>
                 {ActivityData.map((semester, index) => (
                   semester.Activity1.length > 0 && (
@@ -359,158 +358,159 @@ import { div } from 'framer-motion/client';
           case 'skills':
             return (
               <div className="output px-4">
-          <p className="section-title text-2xl font-bold text-white mb-6 flex items-center">
-            <span className="command-prompt text-[--primary] mr-3">&gt;</span> My Technical Skills
-          </p>
-          <div className="skills-categories grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {/* Frontend Development */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Frontend Development</p>
-              <div className="skill-progress-container">
-                {[
-                  { name: 'React', level: 95 },
-                  { name: 'Next.js', level: 90 },
-                  { name: 'TypeScript', level: 92 },
-                  { name: 'Tailwind CSS', level: 98 },
-                  { name: 'Vue.js', level: 88 },
-                  { name: 'Svelte', level: 85 },
-                  { name: 'Angular', level: 80 },
-                  { name: 'WebGL', level: 82 },
-                  { name: 'Vite', level: 90 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
+    <p className="section-title text-2xl font-bold text-white mb-6 flex items-center">
+      <span className="command-prompt text-[--primary] mr-3">></span> My Technical Skills
+    </p>
+    <div className="skills-categories grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {/* Frontend Development */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Frontend Development</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'React', level: 95 },
+            { name: 'Next.js', level: 90 },
+            { name: 'TypeScript', level: 92 },
+            { name: 'Tailwind CSS', level: 98 },
+            { name: 'Vue.js', level: 88 },
+            { name: 'Svelte', level: 85 },
+            { name: 'Angular', level: 80 },
+            { name: 'WebGL', level: 82 },
+            { name: 'Vite', level: 90 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
               </div>
+              <span className="percentage">{skill.level}%</span>
             </div>
-
-            {/* Backend Development */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Backend Development</p>
-              volo
-              <div className="skill-progress-container">
-                {[
-                  { name: 'Go (Fiber)', level: 90 },
-                  { name: 'Node.js (Express)', level: 92 },
-                  { name: 'Java (Spring)', level: 85 },
-                  { name: 'Python (FastAPI)', level: 88 },
-                  { name: 'GraphQL', level: 87 },
-                  { name: 'REST API', level: 95 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Databases */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Databases</p>
-              <div className="skill-progress-container">
-                {[
-                  { name: 'MySQL', level: 92 },
-                  { name: 'MongoDB', level: 90 },
-                  { name: 'PostgreSQL', level: 88 },
-                  { name: 'Neo4j', level: 85 },
-                  { name: 'Redis', level: 87 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* UX/UI Design */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">UX/UI Design</p>
-              <div className="skill-progress-container">
-                {[
-                  { name: 'Figma', level: 95 },
-                  { name: 'Adobe XD', level: 90 },
-                  { name: 'Sketch', level: 88 },
-                  { name: 'Wireframing', level: 92 },
-                  { name: 'Prototyping', level: 90 },
-                  { name: 'User Research', level: 85 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Testing */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Testing</p>
-              <div className="skill-progress-container">
-                {[
-                  { name: 'Cypress', level: 95 },
-                  { name: 'Robot Framework', level: 90 },
-                  { name: 'Jest', level: 92 },
-                  { name: 'Testing Library', level: 88 },
-                  { name: 'Selenium', level: 85 },
-                  { name: 'Python Testing', level: 87 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* DevOps & Other Skills */}
-            <div className="skill-category">
-              <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">DevOps & Others</p>
-              <div className="skill-progress-container">
-                {[
-                  { name: 'Docker', level: 90 },
-                  { name: 'Kubernetes', level: 85 },
-                  { name: 'AWS', level: 88 },
-                  { name: 'CI/CD', level: 92 },
-                  { name: 'Git', level: 95 },
-                  { name: 'Agile Methodologies', level: 90 },
-                ].map(skill => (
-                  <div key={skill.name} className="skill-bar">
-                    <span className="skill-name">{skill.name}</span>
-                    <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
-                      <div className="progress" style={{ width: `${skill.level}%` }}></div>
-                    </div>
-                    <span className="percentage">{skill.level}%</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <p className="back-link mt-8 text-lg text-[rgba(255,255,255,0.6)] font-['Open_Sans']">
-            Type <a href="#about" className="text-[--primary] hover:text-[--primary-light] transition-colors">about</a> to return
-          </p>
+          ))}
         </div>
-      );
-    }
+      </div>
 
+      {/* Backend Development */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Backend Development</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'Go (Fiber)', level: 90 },
+            { name: 'Node.js (Express)', level: 92 },
+            { name: 'Java (Spring)', level: 85 },
+            { name: 'Python (FastAPI)', level: 88 },
+            { name: 'GraphQL', level: 87 },
+            { name: 'REST API', level: 95 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
+              </div>
+              <span className="percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Databases */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Databases</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'MySQL', level: 92 },
+            { name: 'MongoDB', level: 90 },
+            { name: 'PostgreSQL', level: 88 },
+            { name: 'Neo4j', level: 85 },
+            { name: 'Redis', level: 87 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
+              </div>
+              <span className="percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* UX/UI Design */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">UX/UI Design</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'Figma', level: 95 },
+            { name: 'Adobe XD', level: 90 },
+            { name: 'Sketch', level: 88 },
+            { name: 'Wireframing', level: 92 },
+            { name: 'Prototyping', level: 90 },
+            { name: 'User Research', level: 85 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
+              </div>
+              <span className="percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Testing */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">Testing</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'Cypress', level: 95 },
+            { name: 'Robot Framework', level: 90 },
+            { name: 'Jest', level: 92 },
+            { name: 'Testing Library', level: 88 },
+            { name: 'Selenium', level: 85 },
+            { name: 'Python Testing', level: 87 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
+              </div>
+              <span className="percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* DevOps & Other Skills */}
+      <div className="skill-category">
+        <p className="category-title text-xl font-semibold text-[--primary-light] mb-4">DevOps & Others</p>
+        <div className="skill-progress-container">
+          {[
+            { name: 'Docker', level: 90 },
+            { name: 'Kubernetes', level: 85 },
+            { name: 'AWS', level: 88 },
+            { name: 'CI/CD', level: 92 },
+            { name: 'Git', level: 95 },
+            { name: 'Agile Methodologies', level: 90 },
+          ].map(skill => (
+            <div key={skill.name} className="skill-bar">
+              <span className="skill-name">{skill.name}</span>
+              <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
+                <div className="progress" style={{ width: `${skill.level}%` }}></div>
+              </div>
+              <span className="percentage">{skill.level}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+    <p className="back-link mt-8 text-lg text-[rgba(255,255,255,0.6)] font-['Open_Sans']">
+      Type <a href="#about" className="text-[--primary] hover:text-[--primary-light] transition-colors">about</a> to return
+    </p>
+  </div>
+);
+          default:
+            return null;
+        }
+      };
 
       const handleKeyCommand = (e) => {
         if (e.key === 'Enter') {
@@ -575,9 +575,10 @@ import { div } from 'framer-motion/client';
                     id="command-input"
                     type="text"
                     className="command-input"
-                    placeholder="Type a command (e.g., projects, skills)..."
+                    placeholder="Type(projects, skills)..."
                     onKeyPress={handleKeyCommand}
                     spellCheck="false"
+                    style={{fontFamily:"Bitcount Grid Double, system-ui"}}
                     autoComplete="off"
                     aria-label="Enter command to navigate portfolio"
                   />
