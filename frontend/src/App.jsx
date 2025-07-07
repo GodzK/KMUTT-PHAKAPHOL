@@ -3,6 +3,34 @@ import { projectdata, ActivityData, socialLinks ,accordionItems} from '../Backen
 import "./App.css"
 import { div } from 'framer-motion/client';
 
+function SocialCard({ profile }) {
+  return (
+    <div className="card-container">
+      <div className="upper-container" >
+        <div className="image-container">
+          {/* ใช้ icon แทนรูปภาพ */}
+          <i className={`fa ${profile.icon}`} style={{fontSize: '72px', color: '#000'}} aria-hidden="true"></i>
+        </div>
+      </div>
+
+      <div className="lower-container">
+        <div>
+          <h3>{profile.name}</h3>
+          <h4>{profile.text}</h4>
+        </div>
+        <div>
+          <p>{profile.description}</p>
+        </div>
+        <div>
+          <a href={profile.link} className="btn" target="_blank" rel="noopener noreferrer" aria-label={`Visit my ${profile.text} profile`}>
+            View profile
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
     const MatrixRain = () => {
       const canvasRef = useRef(null);
       const animationRef = useRef(null);
@@ -331,30 +359,13 @@ import { div } from 'framer-motion/client';
               </div>
             );
           case 'social':
-            return (
-              
-              <div className="center">
-          <div id="social-test">
-            <ul className="social">
-              {socialLinks.map((link, index) => (
-                <li key={index}>
-  <a
-    href={link.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={`Visit my ${link.text} profile`}
-    className={`social-link ${link.id}`} 
-  >
-    <i className={`fa ${link.icon}`} aria-hidden="true"></i>
-  </a>
-</li>
-
-              ))}
-            </ul>
-           
-          </div>
-        </div>
-            );
+  return (
+    <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", justifyContent: "center" }}>
+      {socialLinks.map(profile => (
+        <SocialCard key={profile.id} profile={profile} />
+      ))}
+    </div>
+  );
           case 'skills':
             return (
               <div className="output px-4">
