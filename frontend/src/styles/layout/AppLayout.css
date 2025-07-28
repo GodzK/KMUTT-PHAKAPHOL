@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap');
+
+:root {
+  --primary: #33ff33;
+  --primary-dark: #1a3c1e;
+  --primary-light: #b3ffb3;
+  --background: #0a1a0c;
+  --glow: rgba(51, 255, 51, 0.8);
+  --terminal-bg: rgba(0, 10, 0, 0.95);
+  --terminal-border: rgba(51, 255, 51, 0.7);
+  --font-size-h1: clamp(2.5rem, 8vw, 4rem);
+  --font-size-h2: clamp(1.8rem, 5vw, 2.5rem);
+  --font-size-body: clamp(1rem, 3vw, 1.3rem);
+  --font-size-small: clamp(0.9rem, 2.5vw, 1.1rem);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(180deg, var(--background), #0f2a12);
+  font-family: "Bitcount Grid Double", system-ui;
+  color: var(--primary-light);
+  overflow-x: hidden;
+}
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  z-index: 1;
+}
+
+.noise {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://media.giphy.com/media/oEI9uBYSzLpBK/giphy.gif') repeat;
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.overlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0.2) 2px,
+    rgba(0, 0, 0, 0) 4px
+  );
+  opacity: 0.7;
+  z-index: 1;
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(4px); }
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 20, 0, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary-dark), var(--primary));
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--primary), var(--primary-light));
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .noise, .overlay, .terminal, .project-item, .activity-item, .skill-item, .timeline-item, a, .progress, .terminal-button {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+  }
+} 
+@media (max-width: 768px) {
+  #acc{
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+  }
+} 

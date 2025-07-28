@@ -1,0 +1,21 @@
+.loading {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+}
+
+.loading div {
+  width: 10px;
+  height: 10px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: loading 1.4s linear infinite;
+}
+
+.loading div:nth-child(2) { animation-delay: 0.5s; }
+.loading div:nth-child(3) { animation-delay: 1s; }
+
+@keyframes loading {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.6); }
+} 

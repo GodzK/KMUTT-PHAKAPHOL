@@ -1,0 +1,26 @@
+.typewriter p {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typeIn 1s ease forwards;
+}
+
+@keyframes typeIn {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.navigation-hint {
+  margin-top: 2rem;
+  font-size: var(--font-size-small);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.navigation-hint a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navigation-hint a:hover {
+  color: var(--primary-light);
+} 

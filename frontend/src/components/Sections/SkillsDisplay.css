@@ -1,0 +1,107 @@
+/* SkillsDisplay specific styles */
+.c-accordion__item {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  min-width: 2.05rem;
+  transition: all 0.3s ease-in-out;
+  background-size: cover;
+  background-position: center;
+}
+
+.c-accordion__item:hover {
+  flex: 2;
+  width: 50%;
+  background: transparent;
+}
+
+.c-accordion__action {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(to bottom, transparent, #111111);
+  background-opacity: 0.75;
+  text-decoration: none;
+}
+
+.c-accordion__content {
+  width: 55%;
+  text-align: left;
+  padding-top: 24rem;
+  padding-left: 8rem;
+  padding-right: 4.5rem;
+  margin-left: -50rem;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.c-accordion__title--hero {
+  font-size: 3.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: -9.0625rem;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.c-accordion__item:hover .c-accordion__title--hero {
+  opacity: 1;
+}
+
+.c-accordion__description {
+  font-weight: 500;
+  line-height: tight;
+  margin-left: -9.0625rem;
+  width: 85%;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.c-accordion__item:hover .c-accordion__description {
+  opacity: 1;
+}
+
+.c-accordion__aside {
+  position: absolute;
+  right: 1rem;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.c-accordion__aside::before {
+  content: '+';
+  font-size: 1.875rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.c-accordion__aside::after {
+  flex: 1;
+  width: 1px;
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.c-accordion__title {
+  font-family: 'Roboto Condensed', sans-serif;
+  max-height: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.c-accordion__item:hover .c-accordion__title {
+  max-height: 0;
+  opacity: 0;
+}
+
+@media (max-width: 480px) {
+  .c-accordion {
+    display: grid;
+    pointer-events: none;
+  }
+} 

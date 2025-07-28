@@ -1,0 +1,51 @@
+/* Common section styles */
+.section-title {
+  font-family: 'Open Sans', sans-serif;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.back-link, .back-link a, .next-link, .next-link a {
+  font-family: 'Open Sans', sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 20px;
+}
+
+.back-link a:hover, .next-link a:hover {
+  color: var(--primary-light);
+}
+
+.output {
+  margin: 2rem 0;
+}
+
+.output p {
+  margin: 0.5rem 0;
+  font-size: var(--font-size-body);
+  color: var(--primary-light);
+}
+
+.loading-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 768px) {
+  body {
+    font-size: var(--font-size-small);
+  }
+  .section-title {
+    font-size: var(--font-size-body);
+  }
+  .back-link, .back-link a, .next-link, .next-link a {
+    font-size: var(--font-size-small);
+  }
+}
+
+@media (max-width: 480px) {
+  .output p {
+    font-size: var(--font-size-small);
+  }
+} 
