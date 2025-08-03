@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './ExperienceSection.css';
-import { loadDevinitImages, loadIT3KImages, loadIOTImages, loadITStarterpackImages } from '../../utils/imageLoader';
+import { loadDevinitImages, loadIT3KImages, loadIOTImages, loadITStarterpackImages , loadSCBImages} from '../../utils/imageLoader';
 
 const ExperienceSection = ({ handleSectionChange }) => {
   const experiences = [
     {
       position: "QA Specialist @ SCB TechX",
       date: "(Apr 2025 - Present)",
+      recommend:["I developed a tool using Python and Selenium to generate 13-digit Thai Citizen IDs (ThaiCID). The generated data was stored locally in an Excel file, which I treated as a simple data center. I also designed the algorithm used for generating the IDs.","Additionally, I created a no-code/low-code application using Microsoft Power Apps that functions similarly to Jira. This app connects directly with Excel and is used for booking work slots.","After generating the 13-digit ThaiCID numbers, I used them as resources for iOnboard to simulate demo account creation. For this part, I performed both manual testing and automated testing using Robot Framework."],
       responsibilities: [
         "- Architected robust testing pipelines with Cypress",
         "- Implemented automated UI and API testing frameworks",
         "- Collaborated with development teams to ensure code quality"
       ],
-      images: loadIOTImages() // Using IOT images as placeholder
+      images: loadSCBImages() 
     },
     {
       position: "Blogger Borntodev",
@@ -170,6 +171,20 @@ const ExperienceSection = ({ handleSectionChange }) => {
                 <p className="position">
                   {exp.position} <br />
                   <span className="date">{exp.date}</span>
+                  <br />
+                  {exp.recommend?.length > 0 && (
+  <ul style={{  marginTop: '20px', paddingLeft: '20px', listStyleType: 'disc' }}>
+    {exp.recommend.map((rec, index) => (
+      <li key={index} style={{ marginBottom: '10px', fontSize: '1rem' }}>
+        {rec}
+      </li>
+    ))}
+  </ul>
+)}
+
+
+
+                  
                 </p>
               </div>
               {exp.images && exp.images.length > 0 && (

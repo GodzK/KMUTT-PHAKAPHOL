@@ -19,4 +19,5 @@ export const loadImagesFromFolder = (folderPath) => {
 export const loadDevinitImages = () => loadImagesFromFolder('Devinit');
 export const loadIT3KImages = () => loadImagesFromFolder('IT3K');
 export const loadIOTImages = () => loadImagesFromFolder('IOT');
+export const loadSCBImages = () => loadImagesFromFolder('SCB');
 export const loadITStarterpackImages = () => loadImagesFromFolder('ITStarterpack'); 

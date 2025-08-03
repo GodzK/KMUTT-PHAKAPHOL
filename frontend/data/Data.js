@@ -54,6 +54,16 @@ export const projectdata = [
     link: "https://github.com/IOT4NHOR/Frontend",
   },
   {
+    projectname: "PKFLIX",
+    description:
+      "An entertainment-themed web app inspired by Netflix, designed to simulate a movie streaming platform. It includes a dynamic UI with featured banners, media content, and filtering functionality. , and now i integrate a data to supabase now this project data is on cloud!☁️",
+    techStack: ["React", "CSS", "Node.js","Supabase"],
+    picture: pkflix,
+    experience:
+      "This project improved my frontend design skills, especially in creating engaging user interfaces. I also practiced backend API handling and managing component-based layouts for media-heavy content.",
+    link: "https://pk-flix.vercel.app/",
+  },
+  {
     projectname: "Pheeraphat Portfolio",
     description:
       "A Static web with a stunning design using only html css and js but i make it for my brother pheeraphat because i saw my brother have only notion page for portfolio ",
@@ -88,7 +98,7 @@ export const projectdata = [
     projectname: "Phakaphol-Ecommerce-Template",
     description:
       "Roby is a sleek and modern HTML/CSS-based ecommerce landing page template designed for promoting and selling sneakers, especially targeting a fashion-conscious audience. It's fully responsive and visually engaging with a product-focused layout.",
-    techStack: ["HTML", "Css", "Javascript"],
+    techStack: ["HTML", "CSS", "JS"],
     picture:ecom,
     link: "https://phakaphol-ecommerce-landing-page.vercel.app/",
   },
@@ -106,7 +116,7 @@ export const projectdata = [
     projectname: "IT-Fundamental slide Show",
     description:
       "A modern, responsive landing page for an Online Learning Platform, designed and built by Pk Phakaphol Tcsk, a frontend developer 👑This project showcases a clean UI with vibrant course sections, testimonials, and a bold hero section to encourage users to explore educational content.",
-    techStack: ["Gsap", "Css", "Javascript"],
+    techStack: ["Gsap", "CSS", "JS"],
     picture:itfunslide,
     link: "https://starterpack-it-fundamental-slidesho.vercel.app/",
   },
@@ -120,16 +130,7 @@ export const projectdata = [
       "This was my first collaborative full-stack project. I was responsible for designing the database schema, setting up backend routes, and integrating them with frontend components for seamless booking functionality.",
     link: "https://github.com/GodzK/Fullstack-Booking",
   },
-  {
-    projectname: "PKFLIX",
-    description:
-      "An entertainment-themed web app inspired by Netflix, designed to simulate a movie streaming platform. It includes a dynamic UI with featured banners, media content, and filtering functionality.",
-    techStack: ["React", "CSS", "Node.js"],
-    picture: pkflix,
-    experience:
-      "This project improved my frontend design skills, especially in creating engaging user interfaces. I also practiced backend API handling and managing component-based layouts for media-heavy content.",
-    link: "https://github.com/GodzK/Fullstack-Booking",
-  },
+  
 ];
 
 export const ActivityData = [

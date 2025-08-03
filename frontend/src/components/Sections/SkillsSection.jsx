@@ -1,5 +1,16 @@
 import React from 'react';
 import './SkillsSection.css';
+import {
+  FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaAws, FaGitAlt, FaPython,
+  FaJava, FaDocker, FaDatabase, FaCogs
+} from 'react-icons/fa';
+import {
+  SiTypescript, SiNextdotjs, SiTailwindcss, SiVuedotjs, SiSvelte,
+  SiSpring, SiFastapi, SiGraphql, SiPostgresql, SiMongodb, SiRedis,
+  SiFigma, SiAdobe, SiSketch, SiCypress, SiJest, SiTestinglibrary,
+  SiSelenium, SiVite, SiAngular
+} from 'react-icons/si';
+
 
 const SkillsSection = ({ handleSectionChange }) => {
   const skillCategories = [
@@ -72,6 +83,47 @@ const SkillsSection = ({ handleSectionChange }) => {
       ]
     }
   ];
+const iconMap = {
+  'React': <FaReact title="React" color="#61DBFB" />,
+  'Next.js': <SiNextdotjs title="Next.js" />,
+  'TypeScript': <SiTypescript title="TypeScript" />,
+  'Tailwind CSS': <SiTailwindcss title="Tailwind CSS" />,
+  'Vue.js': <SiVuedotjs title="Vue.js" />,
+  'Svelte': <SiSvelte title="Svelte" />,
+  'Angular': <SiAngular title="Angular" />,
+  'WebGL': <FaJs title="WebGL" />,
+  'Vite': <SiVite title="Vite" />,
+  'Go (Fiber)': <FaCogs title="Go (Fiber)" />, // fallback
+  'Node.js (Express)': <FaNodeJs title="Node.js" />,
+  'Java (Spring)': <SiSpring title="Spring" />,
+  'Python (FastAPI)': <SiFastapi title="FastAPI" />,
+  'GraphQL': <SiGraphql title="GraphQL" />,
+  'REST API': <FaJs title="REST API" />,
+  'MySQL': <FaDatabase title="MySQL" />,
+  'MongoDB': <SiMongodb title="MongoDB" />,
+  'PostgreSQL': <SiPostgresql title="PostgreSQL" />,
+  'Neo4j': <FaDatabase title="Neo4j" />, // fallback
+  'Redis': <SiRedis title="Redis" />,
+  'Figma': <SiFigma title="Figma" />,
+  'Adobe XD': <SiAdobe title="Adobe XD" />,
+  'Sketch': <SiSketch title="Sketch" />,
+  'Wireframing': <FaCss3Alt title="Wireframing" />,
+  'Prototyping': <FaCss3Alt title="Prototyping" />,
+  'User Research': <FaHtml5 title="User Research" />,
+  'Cypress': <SiCypress title="Cypress" />,
+  'Robot Framework': <FaPython title="Robot Framework" />,
+  'Jest': <SiJest title="Jest" />,
+  'Testing Library': <SiTestinglibrary title="Testing Library" />,
+  'Selenium': <SiSelenium title="Selenium" />,
+  'Python Testing': <FaPython title="Python Testing" />,
+  'Docker': <FaDocker title="Docker" />,
+  'Kubernetes': <FaCogs title="Kubernetes" />, // fallback
+  'AWS': <FaAws title="AWS" />,
+  'CI/CD': <FaGitAlt title="CI/CD" />,
+  'Git': <FaGitAlt title="Git" />,
+  'Agile Methodologies': <FaJs title="Agile" />,
+};
+
 
   return (
     <div className="output px-4">
@@ -87,7 +139,7 @@ const SkillsSection = ({ handleSectionChange }) => {
             <div className="skill-progress-container">
               {category.skills.map(skill => (
                 <div key={skill.name} className="skill-bar">
-                  <span className="skill-name">{skill.name}</span>
+                  <span className="skill-name mr-2 text-xl">{iconMap[skill.name] || skill.name}</span>
                   <div className="progress-bar" role="progressbar" aria-valuenow={skill.level} aria-valuemin="0" aria-valuemax="100">
                     <div className="progress" style={{ width: `${skill.level}%` }}></div>
                   </div>
