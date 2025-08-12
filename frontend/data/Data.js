@@ -17,6 +17,7 @@ import iot3 from "../../frontend/src/IOT/iot3.jpg";
 import iot4 from "../../frontend/src/IOT/iot4.jpg";
 import iot5 from "../../frontend/src/IOT/iot5.jpg";
 import it3k from "../../frontend/src/assets/IT3K/3klogo.png";
+import gta6 from "../../frontend/src/assets/GTA6/gta6.png"
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
 import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
@@ -62,6 +63,16 @@ export const projectdata = [
     experience:
       "This project improved my frontend design skills, especially in creating engaging user interfaces. I also practiced backend API handling and managing component-based layouts for media-heavy content.",
     link: "https://pk-flix.vercel.app/",
+  },
+  {
+    projectname: "GTA 6 Clone",
+    description:
+      "Recreate the viral GTA VI website with React, Tailwind CSS, and GSAP. Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger. Pin sections in place, sync video playback with scroll, and add smooth parallax and image masking effects. A modern, responsive site that brings high-impact motion design to life on the web.",
+    techStack: ["React", "Tailwind", "Gsap", "CSS"],
+    picture: gta6,
+    experience:
+      "This project deepened my understanding of Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger",
+    link: "https://phakaphol-gta6-clone.vercel.app/",
   },
   {
     projectname: "Pheeraphat Portfolio",
