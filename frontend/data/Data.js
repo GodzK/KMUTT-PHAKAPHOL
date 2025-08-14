@@ -18,6 +18,7 @@ import iot4 from "../../frontend/src/IOT/iot4.jpg";
 import iot5 from "../../frontend/src/IOT/iot5.jpg";
 import it3k from "../../frontend/src/assets/IT3K/3klogo.png";
 import gta6 from "../../frontend/src/assets/GTA6/gta6.png"
+import yaiba from "../../frontend/src/assets/Project/yaiba.jfif"
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
 import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
@@ -28,6 +29,16 @@ import helloworld from "../../frontend/src/assets/accordion/helloworld.jpg"
 import teacher from "../../frontend/src/assets/accordion/Teacher.jpg"
 import ecom from "../../frontend/src/assets/ecom.png"
 export const projectdata = [
+     {
+    projectname: "Next Js Landing Page of Demon Slayer: Kimetsu no Yaiba – Infinity Castle* arc. ",
+    description:
+      "A fan-made Next.js web application inspired by the *Demon Slayer: Kimetsu no Yaiba – Infinity Castle* arc.  This project showcases characters, story details, and thematic highlights, with dynamic data rendering from JavaScript objects.",
+    techStack: ["NextJs", "Gsap", "Tailwind"],
+    picture: yaiba,
+    experience:
+      "This project deepened my understanding of Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger",
+    link: "https://phakaphol-yaiba.vercel.app/",
+  },
   {
     projectname: "IT 3KINGS 19TH Web Application",
     description:
@@ -43,6 +54,16 @@ export const projectdata = [
     experience:
       "This project helped me understand how to build a scalable and interactive web application using Next.js. I implemented dynamic routing, handled API data fetching, and ensured the UI was responsive for both public users and administrators.",
     link: "https://it3k.sit.kmutt.ac.th/",
+  },
+    {
+    projectname: "GTA 6 Clone",
+    description:
+      "Recreate the viral GTA VI website with React, Tailwind CSS, and GSAP. Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger. Pin sections in place, sync video playback with scroll, and add smooth parallax and image masking effects. A modern, responsive site that brings high-impact motion design to life on the web.",
+    techStack: ["React", "Tailwind", "Gsap", "CSS"],
+    picture: gta6,
+    experience:
+      "This project deepened my understanding of Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger",
+    link: "https://phakaphol-gta6-clone.vercel.app/",
   },
   {
     projectname: "IOTSMARTSCAN AI",
@@ -64,16 +85,7 @@ export const projectdata = [
       "This project improved my frontend design skills, especially in creating engaging user interfaces. I also practiced backend API handling and managing component-based layouts for media-heavy content.",
     link: "https://pk-flix.vercel.app/",
   },
-  {
-    projectname: "GTA 6 Clone",
-    description:
-      "Recreate the viral GTA VI website with React, Tailwind CSS, and GSAP. Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger. Pin sections in place, sync video playback with scroll, and add smooth parallax and image masking effects. A modern, responsive site that brings high-impact motion design to life on the web.",
-    techStack: ["React", "Tailwind", "Gsap", "CSS"],
-    picture: gta6,
-    experience:
-      "This project deepened my understanding of Build and deploy a scroll-driven experience packed with cinematic animations using GSAP’s ScrollTrigger",
-    link: "https://phakaphol-gta6-clone.vercel.app/",
-  },
+
   {
     projectname: "Pheeraphat Portfolio",
     description:
@@ -94,6 +106,7 @@ export const projectdata = [
       "Ant design using material ui and good structure of code",
     link: "https://iphone-clone-godzk.vercel.app/",
   },
+
 
   {
     projectname: "PK Shop",
