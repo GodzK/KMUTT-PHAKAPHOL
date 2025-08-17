@@ -1,0 +1,112 @@
+{
+    "design_system": {
+      "layout": {
+        "type": "mobile_app_interface",
+        "structure": "card_based_layout",
+        "content_alignment": "center",
+        "spacing": "generous_padding"
+      },
+      "typography": {
+        "primary_heading": {
+          "weight": "bold",
+          "size": "large",
+          "color": "black",
+          "case": "uppercase",
+          "font_family": "sans_serif"
+        },
+        "secondary_heading": {
+          "weight": "bold",
+          "size": "medium_large",
+          "color": "black",
+          "case": "uppercase"
+        },
+        "body_text": {
+          "weight": "normal",
+          "size": "medium",
+          "color": "gray"
+        },
+        "counter_text": {
+          "weight": "normal",
+          "size": "large",
+          "color": "gray"
+        }
+      },
+      "color_palette": {
+        "primary_purple": "#6B46C1",
+        "secondary_green": "#7CB342",
+        "background_white": "#FFFFFF",
+        "background_gray": "#F5F5F5",
+        "text_black": "#000000",
+        "text_gray": "#666666",
+        "button_black": "#000000",
+        "accent_yellow": "#FFD700"
+      },
+      "components": {
+        "header": {
+          "layout": "horizontal_flex",
+          "elements": ["welcome_text", "user_name", "notification_icon", "star_icon"],
+          "background": "white",
+          "padding": "medium"
+        },
+        "navigation_tabs": {
+          "type": "pill_buttons",
+          "active_state": "purple_background_white_text",
+          "inactive_state": "transparent_background_gray_text",
+          "border_radius": "full"
+        },
+        "main_card": {
+          "background": "white",
+          "border_radius": "extra_large",
+          "padding": "large",
+          "shadow": "subtle",
+          "content_alignment": "center"
+        },
+        "character_illustration": {
+          "style": "minimalist_cartoon",
+          "color_scheme": "monochromatic_green",
+          "features": ["simple_lines", "rounded_shapes", "friendly_expression"]
+        },
+        "primary_button": {
+          "background": "black",
+          "text_color": "white",
+          "border_radius": "large",
+          "padding": "medium_vertical_large_horizontal",
+          "text_transform": "capitalize"
+        },
+        "bottom_navigation": {
+          "layout": "horizontal_flex",
+          "background": "transparent",
+          "items": ["home_button", "secondary_icons", "floating_action_button"],
+          "floating_action_button": {
+            "background": "purple",
+            "shape": "circle",
+            "icon": "plus",
+            "color": "white"
+          }
+        },
+        "progress_indicator": {
+          "style": "dots",
+          "color": "gray",
+          "position": "bottom_center"
+        }
+      },
+      "spacing": {
+        "section_gaps": "large",
+        "element_margins": "medium",
+        "card_padding": "large",
+        "button_padding": "medium"
+      },
+      "borders_and_radius": {
+        "card_radius": "24px",
+        "button_radius": "12px",
+        "pill_radius": "full",
+        "fab_radius": "circle"
+      },
+      "visual_hierarchy": {
+        "primary": "large_bold_black_text",
+        "secondary": "medium_bold_black_text",
+        "tertiary": "medium_gray_text",
+        "interactive_elements": "purple_and_black_buttons"
+      }
+    }
+   }
