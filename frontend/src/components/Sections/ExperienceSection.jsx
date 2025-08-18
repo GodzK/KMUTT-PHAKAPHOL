@@ -13,7 +13,7 @@ const ExperienceSection = ({ handleSectionChange, showFull = false }) => {
     {
       position: "QA Specialist",
       company: "SCB TechX",
-      date: "2023 - Present",
+      date: "2025 - Present",
       location: "Bangkok, Thailand",
       responsibilities: [
         "Develop and maintain automated testing pipelines using Cypress",
@@ -26,7 +26,7 @@ const ExperienceSection = ({ handleSectionChange, showFull = false }) => {
     {
       position: "Frontend Developer",
       company: "Freelance",
-      date: "2022 - 2023",
+      date: "2024 - present",
       location: "Remote",
       responsibilities: [
         "Built responsive web applications using React and Next.js",
@@ -39,7 +39,7 @@ const ExperienceSection = ({ handleSectionChange, showFull = false }) => {
     {
       position: "Student Developer",
       company: "KMUTT",
-      date: "2021 - 2023",
+      date: "2024 - present",
       location: "Bangkok, Thailand",
       responsibilities: [
         "Developed full-stack projects for academic requirements",
