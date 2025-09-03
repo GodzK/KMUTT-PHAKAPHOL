@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import LoadingDots from './components/UI/LoadingDots';
 import TypewriterText from './components/UI/TypewriterText';
 import profile from "../src/assets/profile.jpg"
-import { FaUser, FaCode, FaBriefcase, FaStar, FaCog, FaGlobe, FaHome , FaRocket} from 'react-icons/fa';
+import { FaUser, FaCode, FaBriefcase, FaStar, FaCog, FaGlobe, FaHome , FaLightbulb} from 'react-icons/fa';
 import './styles/layout/AppLayout.css';
 import "./loading.css"
 const AboutSection = lazy(() => import('./components/Sections/AboutSection'));
@@ -55,7 +55,7 @@ const [isLoading, setIsLoading] = useState(true);
     { id: 'projects', icon: <FaCode />, label: 'Projects', color: '#FFD700' },
     { id: 'experience', icon: <FaBriefcase />, label: 'Experience', color: '#FF6B6B' },
     { id: 'activities', icon: <FaStar />, label: 'Activities', color: '#4ECDC4' },
-    { id: 'skills', icon: <FaCog />, label: 'Skills', color: '#45B7D1' },
+    { id: 'skills', icon: <FaLightbulb />, label: 'Skills', color: '#45B7D1' },
     { id: 'social', icon: <FaGlobe />, label: 'Connect', color: '#96CEB4' },
   ];
 
@@ -270,36 +270,19 @@ const [isLoading, setIsLoading] = useState(true);
         </Suspense>
       </main>
 
-      <nav className="bottom-nav">
+     <nav className="bottom-nav">
+      {sections.map((section) => (
         <button
-          className={`nav-item ${activeSection === 'home' ? 'active' : ''}`}
-          onClick={() => scrollToSection('home')}
+          key={section.id}
+          className={`nav-item ${activeSection === section.id ? 'active' : ''}`}
+          style={{ '--active-color': section.color }}
+          onClick={() => scrollToSection(section.id)}
         >
-          <FaHome />
-          <span>Home</span>
+          {section.icon}
+       
         </button>
-        <button
-          className={`nav-item ${activeSection === 'projects' ? 'active' : ''}`}
-          onClick={() => scrollToSection('projects')}
-        >
-          <FaCode />
-          <span>Projects</span>
-        </button>
-        <button
-          className={`nav-item ${activeSection === 'skills' ? 'active' : ''}`}
-          onClick={() => scrollToSection('skills')}
-        >
-          <FaCog />
-          <span>Skills</span>
-        </button>
-        <button
-          className={`nav-item ${activeSection === 'social' ? 'active' : ''}`}
-          onClick={() => scrollToSection('social')}
-        >
-          <FaGlobe />
-          <span>Connect</span>
-        </button>
-      </nav>
+      ))}
+    </nav>
     </div>
   );
 };

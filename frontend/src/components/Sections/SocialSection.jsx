@@ -44,7 +44,7 @@ const SocialSection = () => {
       </div>
       
       <div className="social-footer">
-        <p>Feel free to reach out! 🚀</p>
+        <p>Tel 095-946-0008</p>
       </div>
     </div>
   );
