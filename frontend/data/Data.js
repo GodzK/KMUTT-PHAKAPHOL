@@ -21,9 +21,11 @@ import gta6 from "../../frontend/src/assets/GTA6/gta6.png"
 import yaiba from "../../frontend/src/assets/Project/yaiba.jfif"
 import Helloworld from "../../frontend/src/assets//Helloworld/helloworldhippo.png";
 import pkflix from "../../frontend/src/assets/pkflix.png";
+import cognisync from "../../frontend/src/assets/cognisync.png"
 import pheeraphat from "../../frontend/src/assets/pheeraphat-port.png"
 // import moodbase from "../../frontend/src/assets/moodbase.png"
 import iphone from "../../frontend/src/assets/iphone.png"
+
 import itfunslide from  "../../frontend/src/assets/it-fun-slide.png"
 import helloworld from "../../frontend/src/assets/accordion/helloworld.jpg"
 import teacher from "../../frontend/src/assets/accordion/Teacher.jpg"
@@ -75,6 +77,16 @@ export const projectdata = [
       "I learned how to build a full-stack web application that connects with AI models and IoT hardware. This involved integrating real-time detection data, optimizing performance, and handling asynchronous communication between frontend and backend.",
     link: "https://github.com/IOT4NHOR/Frontend",
   },
+  {
+  projectname: "COGNISYNC",
+  description:
+    "CogniSync is an AI-powered platform designed to bridge the gap between the workplace and the inner world of individuals with autism, learning, or behavioral disabilities. Its mission is to empower neurodiverse employees by reducing barriers to communication, balancing cognitive demands, and enabling organizations to support and collaborate effectively.",
+  techStack: ["React", "CSS", "LLM", "Node.js"],
+  picture: cognisync,
+  experience:
+    "Through this project, I learned how to implement authentication with role-based UIs, integrate a frontend with backend APIs, and manage state effectively using tokens. I also gained experience in handling API requests and responses dynamically. From a design perspective, I focused on UI/UX principles to reduce cognitive load and ensure accessibility, which is closely tied to the project's goal of supporting autistic users. Additionally, I learned how to structure a frontend and backend as separate layers, which reflects real-world web application architecture.",
+  link: "https://cogni-sync.vercel.app/"
+},
   {
     projectname: "PKFLIX",
     description:

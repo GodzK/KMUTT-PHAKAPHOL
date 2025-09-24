@@ -17,7 +17,7 @@ const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [showFullContent] = useState(true);
 
-  useEffect(() => {
+  useEffect(() => { 
     const timer = setTimeout(() => setIsLoading(false), 1000);
     return () => clearTimeout(timer);
   }, []);
