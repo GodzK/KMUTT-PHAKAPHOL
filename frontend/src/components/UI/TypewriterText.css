@@ -1,8 +1,0 @@
-.cursor {
-  animation: cursor 0.8s step-end infinite;
-}
-
-@keyframes cursor {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-} 
